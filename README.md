@@ -14,7 +14,7 @@ The original `wd` is a zsh plugin. `wd-go` is written in Go, which means:
 ### Using Go
 
 ```bash
-go install github.com/sevans/wd-go@latest
+go install github.com/OrganizedMayhem/wd-go@latest
 ```
 
 ## Setup
