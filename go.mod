@@ -1,4 +1,4 @@
-module wd-go
+module wd
 
 go 1.26.2
 
