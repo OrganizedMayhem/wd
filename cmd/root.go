@@ -34,7 +34,7 @@ var rootCmd = &cobra.Command{
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
-		configFile += "$HOME/.warprc"
+		configFile += "/.warprc"
 
 		file, err := os.Open(configFile)
 		if err != nil {
