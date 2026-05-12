@@ -1,6 +1,6 @@
 package main
 
-import "wd/cmd"
+import "github.com/OrganizedMayhem/wd-go/cmd"
 
 func main() {
 	cmd.Execute()
