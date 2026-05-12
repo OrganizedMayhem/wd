@@ -1,10 +1,10 @@
-# wd-go
+# wd (go re-write)
 
-`wd-go` (warp directory) is a tool that allows you to jump to custom directories in your terminal. It's a Go rewrite of the original [wd](https://github.com/mfaerevaag/wd) zsh plugin, designed for easier installation and cross-shell compatibility.
+`wd` (warp directory) is a tool that allows you to jump to custom directories in your terminal. It's a Go rewrite of the original [wd](https://github.com/mfaerevaag/wd) zsh plugin, designed for easier installation and cross-shell compatibility.
 
 ## Why wd-go?
 
-The original `wd` is a zsh plugin. `wd-go` is written in Go, which means:
+The original `wd` is a zsh plugin. This `wd` is written in Go, which means:
 - **Easy Installation**: Just a single binary, no need for complex shell plugin managers.
 - **Cross-Shell Support**: Works with `bash` and `zsh`.
 - **Fast**: Built with Go for speed and efficiency.
@@ -14,12 +14,12 @@ The original `wd` is a zsh plugin. `wd-go` is written in Go, which means:
 ### Using Go
 
 ```bash
-go install github.com/OrganizedMayhem/wd-go@latest
+go install github.com/OrganizedMayhem/wd@latest
 ```
 
 ## Setup
 
-Since a child process cannot change the parent shell's directory, `wd-go` requires a small shell wrapper. 
+Since a child process cannot change the parent shell's directory, `wd` requires a small shell wrapper. 
 
 Add the following to your `.bashrc`, `.zshrc`, or equivalent:
 
