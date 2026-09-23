@@ -1,1 +1,7 @@
 wd
+
+# graphify: publish only the rendered outputs, not caches or local scratch files
+graphify-out/*
+!graphify-out/graph.html
+!graphify-out/graph.json
+!graphify-out/GRAPH_REPORT.md
