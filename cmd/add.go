@@ -25,15 +25,7 @@ If no point is specified, the current directory's name will be used.`,
 			point = args[0]
 		}
 
-		store, err := newStore()
-		if err != nil {
-			return err
-		}
-		if err := store.Put(point, path); err != nil {
-			return err
-		}
-		fmt.Fprintf(cmd.OutOrStdout(), "Added warp point '%s' to '%s'\n", point, path)
-		return nil
+		return addPoint(cmd, point, path)
 	},
 }
 

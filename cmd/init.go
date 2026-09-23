@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -22,12 +23,13 @@ Invoke-Expression (@(wd init powershell) -join "` + "`n" + `")
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		shell := args[0]
+		passthrough := passthroughArgs()
 		var script string
 		switch shell {
 		case "bash", "zsh":
-			script = posixScript
+			script = strings.Replace(posixScript, passthroughPlaceholder, strings.Join(passthrough, "|"), 1)
 		case "powershell", "pwsh":
-			script = powershellScript
+			script = strings.Replace(powershellScript, passthroughPlaceholder, "'"+strings.Join(passthrough, "', '")+"'", 1)
 		default:
 			return fmt.Errorf("unsupported shell %q; supported shells are bash, zsh, and powershell", shell)
 		}
@@ -35,6 +37,10 @@ Invoke-Expression (@(wd init powershell) -join "` + "`n" + `")
 		return nil
 	},
 }
+
+// passthroughPlaceholder is replaced with the arguments the wrapper forwards
+// to the binary unchanged, so the list never drifts from the registered commands.
+const passthroughPlaceholder = "@PASSTHROUGH@"
 
 const posixScript = `wd_cd() {
     local target_path
@@ -58,7 +64,7 @@ wd() {
     fi
 
     case "$1" in
-        add|addcd|clean|list|ls|open|path|rm|show|version|init|help|--help|-h|--version|-v)
+        @PASSTHROUGH@)
             command wd "$@"
             ;;
         *)
@@ -76,7 +82,7 @@ const powershellScript = `function wd {
     }
 
     switch ($args[0]) {
-        { $_ -in 'add', 'addcd', 'clean', 'list', 'ls', 'open', 'path', 'rm', 'show', 'version', 'init', 'help', '--help', '-h', '--version', '-v' } {
+        { $_ -in @PASSTHROUGH@ } {
             & $wdBin @args
             return
         }

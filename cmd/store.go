@@ -94,6 +94,9 @@ func (s Store) Put(name, path string) error {
 
 	for index, point := range points {
 		if point.Name == name {
+			if point.Path == path {
+				return nil
+			}
 			points[index].Path = path
 			return s.Save(points)
 		}
@@ -113,6 +116,9 @@ func (s Store) Remove(name string) error {
 			filtered = append(filtered, point)
 		}
 	}
+	if len(filtered) == len(points) {
+		return fmt.Errorf("warp point %q not found", name)
+	}
 	return s.Save(filtered)
 }
 
@@ -130,6 +136,9 @@ func (s Store) Clean() error {
 			return fmt.Errorf("check warp point %q: %w", point.Name, err)
 		}
 	}
+	if len(filtered) == len(points) {
+		return nil
+	}
 	return s.Save(filtered)
 }
 
@@ -146,11 +155,16 @@ func (s Store) Save(points []WarpPoint) error {
 		file.Close()
 		return fmt.Errorf("set temporary config permissions: %w", err)
 	}
+	var contents strings.Builder
 	for _, point := range points {
-		if _, err := fmt.Fprintf(file, "%s:%s\n", point.Name, point.Path); err != nil {
-			file.Close()
-			return fmt.Errorf("write temporary config: %w", err)
-		}
+		contents.WriteString(point.Name)
+		contents.WriteByte(':')
+		contents.WriteString(point.Path)
+		contents.WriteByte('\n')
+	}
+	if _, err := file.WriteString(contents.String()); err != nil {
+		file.Close()
+		return fmt.Errorf("write temporary config: %w", err)
 	}
 	if err := file.Close(); err != nil {
 		return fmt.Errorf("close temporary config: %w", err)

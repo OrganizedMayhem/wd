@@ -41,9 +41,13 @@ var showCmd = &cobra.Command{
 		if err != nil {
 			return fmt.Errorf("get current directory: %w", err)
 		}
+		current, err := os.Stat(currentPath)
+		if err != nil {
+			return fmt.Errorf("get current directory: %w", err)
+		}
 		var names []string
 		for _, point := range points {
-			if point.Path == currentPath {
+			if point.Path == currentPath || sameDir(current, point.Path) {
 				names = append(names, point.Name)
 			}
 		}
@@ -58,4 +62,12 @@ var showCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(showCmd)
+}
+
+// sameDir reports whether path refers to the same directory as current, which
+// catches matches a string comparison misses: symlinked paths (macOS /var vs
+// /private/var) and case or short-name differences on Windows.
+func sameDir(current os.FileInfo, path string) bool {
+	info, err := os.Stat(path)
+	return err == nil && os.SameFile(current, info)
 }

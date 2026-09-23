@@ -2,8 +2,8 @@
 
 package cmd
 
-import "os/exec"
+import "github.com/spf13/cobra"
 
-func openDir(path string) *exec.Cmd {
-	return exec.Command("open", path)
+func openDir(cmd *cobra.Command, path string) error {
+	return runOpener(cmd, "open", path)
 }

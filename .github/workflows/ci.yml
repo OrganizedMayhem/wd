@@ -1,8 +1,10 @@
+# Mirrors the Release workflow (test, build, package, checksum) on every push
+# and pull request, stopping short of publishing a GitHub release.
 name: CI
 
 on:
   push:
-    branches: [main]
+    branches: ["**"]
   pull_request:
 
 permissions:
@@ -10,11 +12,15 @@ permissions:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version-file: go.mod
           cache: true
@@ -22,8 +28,15 @@ jobs:
       - name: Vet
         run: go vet ./...
 
+      # The race detector needs cgo, which the Windows runner is not set up for.
       - name: Test
-        run: go test ./... -race
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            go test ./...
+          else
+            go test ./... -race
+          fi
 
   build:
     needs: test
@@ -45,29 +58,81 @@ jobs:
           - goos: windows
             goarch: arm64
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version-file: go.mod
           cache: true
 
-      - name: Build ${{ matrix.goos }}/${{ matrix.goarch }}
+      # No tag to derive a version from, so use the one in cmd/version.go
+      # marked as a CI build of this commit.
+      - name: Set version
+        id: version
+        run: |
+          base=$(grep '^var version = ' cmd/version.go | sed 's/.*"\(.*\)".*/\1/')
+          echo "version=${base}-ci.${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
+      - name: Build
         env:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
           CGO_ENABLED: 0
         run: |
           mkdir -p dist
-          binary=wd
-          if [ "$GOOS" = "windows" ]; then binary=wd.exe; fi
-          go build -trimpath -ldflags="-s -w" -o "dist/$binary" .
+          out=wd
+          if [ "$GOOS" = "windows" ]; then out=wd.exe; fi
+          go build -trimpath -ldflags="-s -w -X github.com/OrganizedMayhem/wd/cmd.version=${{ steps.version.outputs.version }}" -o "dist/$out" .
 
-      - name: Upload build artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/upload-artifact@v4
+      - name: Verify version is embedded
+        if: matrix.goos == 'linux' && matrix.goarch == 'amd64'
+        run: |
+          got=$(./dist/wd version)
+          echo "$got"
+          [ "$got" = "wd version ${{ steps.version.outputs.version }}" ]
+
+      - name: Package
+        id: package
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: |
+          name="wd_${{ steps.version.outputs.version }}_${GOOS}_${GOARCH}"
+          cd dist
+          if [ "$GOOS" = "windows" ]; then
+            zip "../${name}.zip" wd.exe
+            echo "asset=${name}.zip" >> "$GITHUB_OUTPUT"
+          else
+            tar -czf "../${name}.tar.gz" wd
+            echo "asset=${name}.tar.gz" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: wd-${{ matrix.goos }}-${{ matrix.goarch }}
-          path: dist/
+          name: ${{ steps.package.outputs.asset }}
+          path: ${{ steps.package.outputs.asset }}
           if-no-files-found: error
-          retention-days: 90
+          retention-days: 14
+
+  checksums:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create checksums
+        working-directory: artifacts
+        run: |
+          sha256sum ./* > checksums.txt
+          cat checksums.txt
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: checksums.txt
+          path: artifacts/checksums.txt
+          if-no-files-found: error
+          retention-days: 14

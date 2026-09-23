@@ -1,0 +1,122 @@
+{
+  "cmd/add.go": {
+    "mtime": 1790130698.7211986,
+    "seen": 1790130948.757979,
+    "ast_hash": "40de9c9d9f636c9770d15b7d9e05d354",
+    "semantic_hash": "40de9c9d9f636c9770d15b7d9e05d354"
+  },
+  "cmd/addcd.go": {
+    "mtime": 1790130698.7211986,
+    "seen": 1790130948.757985,
+    "ast_hash": "a5189a341269c95781f660afc39f2f2b",
+    "semantic_hash": "a5189a341269c95781f660afc39f2f2b"
+  },
+  "cmd/clean.go": {
+    "mtime": 1788553820.8080702,
+    "seen": 1790130231.7259078,
+    "ast_hash": "aca4b3e29d81b458ba1b2e9c07493b83",
+    "semantic_hash": "aca4b3e29d81b458ba1b2e9c07493b83"
+  },
+  "cmd/init.go": {
+    "mtime": 1790130698.7211986,
+    "seen": 1790130948.7580428,
+    "ast_hash": "24a4c0a5e50186a64fac196dde1a0dc6",
+    "semantic_hash": "24a4c0a5e50186a64fac196dde1a0dc6"
+  },
+  "cmd/list.go": {
+    "mtime": 1788553820.8080702,
+    "seen": 1790130231.7259102,
+    "ast_hash": "bbcffe19bd26ebc9ed1c70c08314f829",
+    "semantic_hash": "bbcffe19bd26ebc9ed1c70c08314f829"
+  },
+  "cmd/ls.go": {
+    "mtime": 1788553820.8080702,
+    "seen": 1790130231.7259114,
+    "ast_hash": "6974a88ef2ae7d1daf554f5f59adf097",
+    "semantic_hash": "6974a88ef2ae7d1daf554f5f59adf097"
+  },
+  "cmd/open.go": {
+    "mtime": 1788553820.8080702,
+    "seen": 1790130231.7259123,
+    "ast_hash": "a0589b09e8864b0e5d2a99cadf674364",
+    "semantic_hash": "a0589b09e8864b0e5d2a99cadf674364"
+  },
+  "cmd/open_darwin.go": {
+    "mtime": 1788549493.055157,
+    "seen": 1790130231.7259133,
+    "ast_hash": "8bf96cde5602e7ddbff8ea67e7401a9f",
+    "semantic_hash": "8bf96cde5602e7ddbff8ea67e7401a9f"
+  },
+  "cmd/open_linux.go": {
+    "mtime": 1788549493.055157,
+    "seen": 1790130231.7259145,
+    "ast_hash": "f090cd38ac34551a9ef739779ad1f047",
+    "semantic_hash": "f090cd38ac34551a9ef739779ad1f047"
+  },
+  "cmd/open_windows.go": {
+    "mtime": 1790130698.7211986,
+    "seen": 1790130948.7581415,
+    "ast_hash": "6fee0dc1aafd63b5af3254f53a09e504",
+    "semantic_hash": "6fee0dc1aafd63b5af3254f53a09e504"
+  },
+  "cmd/path.go": {
+    "mtime": 1788553820.8080702,
+    "seen": 1790130231.7259161,
+    "ast_hash": "bbc6822da96156f34db3c3bea32a38d3",
+    "semantic_hash": "bbc6822da96156f34db3c3bea32a38d3"
+  },
+  "cmd/rm.go": {
+    "mtime": 1788553820.8080702,
+    "seen": 1790130231.7259176,
+    "ast_hash": "f2e25f63bd9a235b2b1cd6ead5b02856",
+    "semantic_hash": "f2e25f63bd9a235b2b1cd6ead5b02856"
+  },
+  "cmd/root.go": {
+    "mtime": 1790130784.0522652,
+    "seen": 1790130948.7581797,
+    "ast_hash": "3b54b93e2e351d8466831a6a88f3b7ed",
+    "semantic_hash": "3b54b93e2e351d8466831a6a88f3b7ed"
+  },
+  "cmd/show.go": {
+    "mtime": 1790130698.7211986,
+    "seen": 1790130948.7581804,
+    "ast_hash": "8d4e4e71502202321b0585c4962fa848",
+    "semantic_hash": "8d4e4e71502202321b0585c4962fa848"
+  },
+  "cmd/store.go": {
+    "mtime": 1790130698.7211986,
+    "seen": 1790130948.7581816,
+    "ast_hash": "08cf33a690cb2ee687f51f3d603a406f",
+    "semantic_hash": "08cf33a690cb2ee687f51f3d603a406f"
+  },
+  "cmd/store_test.go": {
+    "mtime": 1788553820.8080702,
+    "seen": 1790130231.725921,
+    "ast_hash": "084449ba17eaca156ea164342ca3b747",
+    "semantic_hash": "084449ba17eaca156ea164342ca3b747"
+  },
+  "cmd/version.go": {
+    "mtime": 1788553820.8080702,
+    "seen": 1790130231.725922,
+    "ast_hash": "422364c7c3fe6c1313f282aada733db3",
+    "semantic_hash": "422364c7c3fe6c1313f282aada733db3"
+  },
+  "go.mod": {
+    "mtime": 1787792041.4169118,
+    "seen": 1790130231.7259228,
+    "ast_hash": "25d2318135e7f00e00ff33ec3d73971c",
+    "semantic_hash": "25d2318135e7f00e00ff33ec3d73971c"
+  },
+  "main.go": {
+    "mtime": 1787792041.4169118,
+    "seen": 1790130231.7259235,
+    "ast_hash": "9f6d54bbc78ef45aa3c6f403497a0205",
+    "semantic_hash": "9f6d54bbc78ef45aa3c6f403497a0205"
+  },
+  "main_test.go": {
+    "mtime": 1790130784.0529602,
+    "seen": 1790130948.7582512,
+    "ast_hash": "190a513c0468ea604465daf551fed0c2",
+    "semantic_hash": "190a513c0468ea604465daf551fed0c2"
+  }
+}
