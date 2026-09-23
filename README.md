@@ -34,6 +34,8 @@ For PowerShell, add the following to your profile (`$PROFILE`):
 Invoke-Expression (@(wd init powershell) -join "`n")
 ```
 
+The wrapper passes `wd`'s own commands (`list`, `completion`, and so on) straight through instead of treating them as warp points, and that list is built from the installed `wd` when `wd init` runs. Loading it with `eval`/`Invoke-Expression` as above rebuilds it in every new shell. If you saved the output of `wd init` to a file instead, regenerate that file after upgrading `wd` so new commands keep working.
+
 ## Usage
 
 ### Add a warp point
