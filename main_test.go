@@ -322,6 +322,25 @@ func writeShim(t *testing.T, binDir string) {
 	}
 }
 
+// writeFakeFzf installs an `fzf` in a new directory that selects the input
+// line for the warp point named by WD_FZF_PICK, failing like a cancelled fzf
+// when there is none, and returns that directory.
+func writeFakeFzf(t *testing.T) string {
+	t.Helper()
+	dir := tempDir(t)
+	name := filepath.Join(dir, "fzf")
+	// Only shell builtins: the wrapper tests run with nothing else on PATH.
+	contents := "#!/bin/sh\nstatus=130\nwhile IFS= read -r line; do\n  case $line in \"$WD_FZF_PICK\":*) printf '%s\\n' \"$line\"; status=0 ;; esac\ndone\nexit $status\n"
+	if runtime.GOOS == "windows" {
+		name += ".cmd"
+		contents = "@\"%SystemRoot%\\System32\\findstr.exe\" /b /c:\"%WD_FZF_PICK%:\"\r\n@if errorlevel 1 exit /b 130\r\n"
+	}
+	if err := os.WriteFile(name, []byte(contents), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	return dir
+}
+
 // shellAdapter captures what differs between the generated shell wrappers so
 // the scenarios in runShellWrapperSuite can be written once and run against
 // bash, zsh, and PowerShell alike.
@@ -406,11 +425,11 @@ func runShellWrapperSuite(t *testing.T, adapter shellAdapter) {
 		t.Fatal(err)
 	}
 
-	run := func(t *testing.T, dir, script string) string {
+	run := func(t *testing.T, dir, script string, env ...string) string {
 		t.Helper()
 		shell := adapter.command(binary, wrapper, script)
 		shell.Dir = dir
-		shell.Env = helperEnv(home, "PATH="+binDir)
+		shell.Env = helperEnv(home, append([]string{"PATH=" + binDir}, env...)...)
 		output, err := shell.CombinedOutput()
 		if err != nil {
 			t.Fatalf("shell script failed: %v\n%s", err, output)
@@ -473,6 +492,60 @@ func runShellWrapperSuite(t *testing.T, adapter shellAdapter) {
 		}
 		if got, want := lastLine(output), start; got != want {
 			t.Errorf("cwd after failed warp = %q, want unchanged %q", got, want)
+		}
+	})
+
+	t.Run("NoArgsWithoutFzfShowsHelp", func(t *testing.T) {
+		start := tempDir(t)
+		writeWarpConfig(t, home, "alpha:"+tempDir(t)+"\n")
+
+		output := run(t, start, "wd; "+adapter.pwdExpr)
+		if !strings.Contains(output, "Usage:") {
+			t.Errorf("output = %q, want help", output)
+		}
+		if got, want := lastLine(output), start; got != want {
+			t.Errorf("cwd after bare wd = %q, want unchanged %q", got, want)
+		}
+	})
+
+	fzfPath := "PATH=" + writeFakeFzf(t) + string(os.PathListSeparator) + binDir
+
+	t.Run("NoArgsWarpsToFzfSelection", func(t *testing.T) {
+		target := filepath.Join(tempDir(t), "picked point")
+		if err := os.MkdirAll(target, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		start := tempDir(t)
+		writeWarpConfig(t, home, "alpha:"+tempDir(t)+"\nbeta:"+target+"\n")
+
+		output := run(t, start, "wd; "+adapter.pwdExpr, fzfPath, "WD_FZF_PICK=beta")
+		if got, want := lastLine(output), target; got != want {
+			t.Errorf("cwd after fzf pick = %q, want %q", got, want)
+		}
+	})
+
+	t.Run("NoArgsCancelledFzfDoesNotWarp", func(t *testing.T) {
+		start := tempDir(t)
+		writeWarpConfig(t, home, "alpha:"+tempDir(t)+"\n")
+
+		output := run(t, start, "wd; "+adapter.pwdExpr, fzfPath, "WD_FZF_PICK=missing")
+		if got, want := lastLine(output), start; got != want {
+			t.Errorf("cwd after cancelled pick = %q, want unchanged %q", got, want)
+		}
+	})
+
+	t.Run("NoArgsWithoutPointsSkipsFzf", func(t *testing.T) {
+		start := tempDir(t)
+		if err := os.Remove(filepath.Join(home, ".warprc")); err != nil && !os.IsNotExist(err) {
+			t.Fatal(err)
+		}
+
+		output := run(t, start, "wd; "+adapter.pwdExpr, fzfPath, "WD_FZF_PICK=No warp points yet")
+		if !strings.Contains(output, "No warp points yet") {
+			t.Errorf("output = %q, want the no warp points message", output)
+		}
+		if got, want := lastLine(output), start; got != want {
+			t.Errorf("cwd without warp points = %q, want unchanged %q", got, want)
 		}
 	})
 

@@ -66,6 +66,14 @@ wd add
 wd myproject
 ```
 
+### Pick a warp point with fzf
+
+If [fzf](https://github.com/junegunn/fzf) is installed, running `wd` with no arguments opens a fuzzy finder over your warp points and warps to the one you pick. Without fzf, it prints the help as before.
+
+```bash
+wd
+```
+
 ### List all warp points
 
 ```bash
