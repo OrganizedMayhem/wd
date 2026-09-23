@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"slices"
 	"strings"
 	"testing"
 
@@ -267,6 +268,42 @@ func TestCommandErrors(t *testing.T) {
 	}
 	if got := runWDFailure(t, test, "rm", "missing"); !strings.Contains(got, `warp point "missing" not found`) {
 		t.Errorf("rm unknown point error = %q, want not found error", got)
+	}
+}
+
+// completions returns the candidates a shell completion request prints,
+// dropping the directive line and the debug message cobra writes to stderr.
+func completions(t *testing.T, options invocation, args ...string) []string {
+	t.Helper()
+	output := runWD(t, options, append([]string{"__complete"}, args...)...)
+	var candidates []string
+	for _, line := range strings.Split(strings.TrimSpace(output), "\n") {
+		if line != "" && !strings.HasPrefix(line, ":") && !strings.HasPrefix(line, "Completion ended") {
+			candidates = append(candidates, line)
+		}
+	}
+	return candidates
+}
+
+func TestWarpPointCompletion(t *testing.T) {
+	home := tempDir(t)
+	test := invocation{home: home, dir: tempDir(t)}
+
+	if got := completions(t, test, "rm", ""); len(got) != 0 {
+		t.Errorf("completions without config = %q, want none", got)
+	}
+
+	writeWarpConfig(t, home, "proj:/srv/proj\npics:/home/pics\nwork:/srv/work\n")
+	if got, want := completions(t, test, "p"), []string{"path\tShow the path to given warp point (pwd)", "proj\t/srv/proj", "pics\t/home/pics"}; !slices.Equal(got, want) {
+		t.Errorf("root completions = %q, want %q", got, want)
+	}
+	for _, verb := range []string{"path", "open", "ls", "rm", "show"} {
+		if got, want := completions(t, test, verb, "w"), []string{"work\t/srv/work"}; !slices.Equal(got, want) {
+			t.Errorf("%s completions = %q, want %q", verb, got, want)
+		}
+		if got := completions(t, test, verb, "work", ""); len(got) != 0 {
+			t.Errorf("%s second argument completions = %q, want none", verb, got)
+		}
 	}
 }
 
