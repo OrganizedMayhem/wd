@@ -3,18 +3,32 @@
 package cmd
 
 import (
-	"os/exec"
+	"fmt"
 	"syscall"
+	"unsafe"
+
+	"github.com/spf13/cobra"
 )
 
-// openDir launches the folder through `start`. The command line is built by
-// hand so the path stays inside double quotes: Go only quotes arguments that
-// contain spaces, and cmd.exe would otherwise treat characters like & or | in
-// a path as command separators. Windows paths cannot contain double quotes.
-func openDir(path string) *exec.Cmd {
-	command := exec.Command("cmd.exe")
-	command.SysProcAttr = &syscall.SysProcAttr{
-		CmdLine: `cmd.exe /d /c start "" "` + path + `"`,
+var procShellExecuteW = syscall.NewLazyDLL("shell32.dll").NewProc("ShellExecuteW")
+
+// openDir hands the folder straight to the Windows shell. Going through
+// cmd.exe would expand %VAR% pairs in the path, and explorer.exe exits with
+// status 1 even when it succeeds.
+func openDir(_ *cobra.Command, path string) error {
+	verb, err := syscall.UTF16PtrFromString("open")
+	if err != nil {
+		return err
 	}
-	return command
+	file, err := syscall.UTF16PtrFromString(path)
+	if err != nil {
+		return err
+	}
+	const swShowNormal = 1
+	ret, _, _ := procShellExecuteW.Call(0, uintptr(unsafe.Pointer(verb)), uintptr(unsafe.Pointer(file)), 0, 0, swShowNormal)
+	// ShellExecuteW returns a value greater than 32 on success.
+	if ret <= 32 {
+		return fmt.Errorf("ShellExecute failed with code %d", ret)
+	}
+	return nil
 }

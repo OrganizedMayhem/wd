@@ -257,7 +257,7 @@ func TestCommandErrors(t *testing.T) {
 	}
 
 	writeWarpConfig(t, home, "")
-	for _, name := range []string{"list", "completion", "-x"} {
+	for _, name := range []string{"list", "List", "completion", "-x"} {
 		if got := runWDFailure(t, test, "add", "--", name); !strings.Contains(got, "is reserved") {
 			t.Errorf("add %s error = %q, want reserved name error", name, got)
 		}

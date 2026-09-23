@@ -67,7 +67,11 @@ func passthroughArgs() []string {
 // addPoint stores a warp point after checking that the shell wrapper will be
 // able to jump to it.
 func addPoint(cmd *cobra.Command, point, path string) error {
-	if strings.HasPrefix(point, "-") || slices.Contains(passthroughArgs(), point) {
+	// The PowerShell wrapper matches passthrough names without regard to case.
+	isReserved := slices.ContainsFunc(passthroughArgs(), func(arg string) bool {
+		return strings.EqualFold(arg, point)
+	})
+	if strings.HasPrefix(point, "-") || isReserved {
 		return fmt.Errorf("warp point name %q is reserved by a wd command; choose another name", point)
 	}
 
