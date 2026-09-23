@@ -3,6 +3,7 @@ package cmd
 import (
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 )
@@ -42,8 +43,11 @@ func TestStorePutReplacesExistingPoint(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got, want := info.Mode().Perm(), os.FileMode(0600); got != want {
-		t.Errorf("config permissions = %04o, want %04o", got, want)
+	// Windows has no Unix permission bits; Go reports writable files as 0666.
+	if runtime.GOOS != "windows" {
+		if got, want := info.Mode().Perm(), os.FileMode(0600); got != want {
+			t.Errorf("config permissions = %04o, want %04o", got, want)
+		}
 	}
 }
 
