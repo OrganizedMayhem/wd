@@ -71,8 +71,22 @@ func runWDFailure(t *testing.T, options invocation, args ...string) string {
 	return string(output)
 }
 
+// tempDir returns a test directory with symlinks resolved, so paths reported
+// by the OS (macOS /var -> /private/var, Windows 8.3 short names) match the
+// paths the tests compare against.
+func tempDir(t *testing.T) string {
+	t.Helper()
+	dir, err := filepath.EvalSymlinks(t.TempDir())
+	if err != nil {
+		t.Fatal(err)
+	}
+	return dir
+}
+
+// helperEnv points both HOME (Unix) and USERPROFILE (Windows) at home, since
+// os.UserHomeDir reads a different variable per platform.
 func helperEnv(home string, extra ...string) []string {
-	overridden := map[string]bool{"HOME": true, "WD_HELPER_PROCESS": true}
+	overridden := map[string]bool{"HOME": true, "USERPROFILE": true, "WD_HELPER_PROCESS": true}
 	for _, value := range extra {
 		key, _, _ := strings.Cut(value, "=")
 		overridden[key] = true
@@ -85,7 +99,7 @@ func helperEnv(home string, extra ...string) []string {
 			env = append(env, value)
 		}
 	}
-	return append(env, append([]string{"HOME=" + home, "WD_HELPER_PROCESS=1"}, extra...)...)
+	return append(env, append([]string{"HOME=" + home, "USERPROFILE=" + home, "WD_HELPER_PROCESS=1"}, extra...)...)
 }
 
 func writeWarpConfig(t *testing.T, home, content string) {
@@ -96,8 +110,8 @@ func writeWarpConfig(t *testing.T, home, content string) {
 }
 
 func TestWarpPointVerbs(t *testing.T) {
-	home := t.TempDir()
-	target := t.TempDir()
+	home := tempDir(t)
+	target := tempDir(t)
 	test := invocation{home: home, dir: target}
 
 	if got, want := runWD(t, test, "addcd", target, "alpha"), fmt.Sprintf("Added warp point 'alpha' to '%s'\n", target); got != want {
@@ -119,7 +133,7 @@ func TestWarpPointVerbs(t *testing.T) {
 		t.Errorf("warp output = %q, want %q", got, want)
 	}
 
-	replacement := t.TempDir()
+	replacement := tempDir(t)
 	if got, want := runWD(t, test, "addcd", replacement, "alpha"), fmt.Sprintf("Added warp point 'alpha' to '%s'\n", replacement); got != want {
 		t.Errorf("duplicate addcd output = %q, want %q", got, want)
 	}
@@ -138,9 +152,37 @@ func TestWarpPointVerbs(t *testing.T) {
 	}
 }
 
+func TestAddcdStoresAbsolutePath(t *testing.T) {
+	home := tempDir(t)
+	parent := tempDir(t)
+	target := filepath.Join(parent, "child")
+	if err := os.Mkdir(target, 0o755); err != nil {
+		t.Fatal(err)
+	}
+
+	runWD(t, invocation{home: home, dir: parent}, "addcd", "child")
+	if got, want := runWD(t, invocation{home: home}, "path", "child"), target+"\n"; got != want {
+		t.Errorf("path for relative addcd = %q, want %q", got, want)
+	}
+}
+
+func TestShowMatchesSymlinkedDirectory(t *testing.T) {
+	home := tempDir(t)
+	target := tempDir(t)
+	link := filepath.Join(tempDir(t), "link")
+	if err := os.Symlink(target, link); err != nil {
+		t.Skipf("cannot create symlink: %v", err)
+	}
+	writeWarpConfig(t, home, "linked:"+link+"\n")
+
+	if got, want := runWD(t, invocation{home: home, dir: target}, "show"), "Warp points for current directory: linked\n"; got != want {
+		t.Errorf("show output = %q, want %q", got, want)
+	}
+}
+
 func TestCleanVerbRemovesMissingWarpPoints(t *testing.T) {
-	home := t.TempDir()
-	target := t.TempDir()
+	home := tempDir(t)
+	target := tempDir(t)
 	missing := filepath.Join(home, "does-not-exist")
 	writeWarpConfig(t, home, "live:"+target+"\nstale:"+missing+"\n")
 
@@ -158,8 +200,8 @@ func TestCleanVerbRemovesMissingWarpPoints(t *testing.T) {
 }
 
 func TestLSVerbListsWarpPointContents(t *testing.T) {
-	home := t.TempDir()
-	target := t.TempDir()
+	home := tempDir(t)
+	target := tempDir(t)
 	if err := os.WriteFile(filepath.Join(target, "listed.txt"), []byte("contents"), 0o644); err != nil {
 		t.Fatal(err)
 	}
@@ -175,10 +217,10 @@ func TestOpenVerbUsesPlatformOpener(t *testing.T) {
 		t.Skip("the fake platform opener is specific to the Linux xdg-open implementation")
 	}
 
-	home := t.TempDir()
-	target := t.TempDir()
-	binDir := t.TempDir()
-	logFile := filepath.Join(t.TempDir(), "open-path")
+	home := tempDir(t)
+	target := tempDir(t)
+	binDir := tempDir(t)
+	logFile := filepath.Join(tempDir(t), "open-path")
 	openCommand := filepath.Join(binDir, "xdg-open")
 	if err := os.WriteFile(openCommand, []byte("#!/bin/sh\nprintf '%s\\n' \"$1\" > \"$WD_OPEN_LOG\"\n"), 0o755); err != nil {
 		t.Fatal(err)
@@ -200,8 +242,8 @@ func TestOpenVerbUsesPlatformOpener(t *testing.T) {
 }
 
 func TestCommandErrors(t *testing.T) {
-	home := t.TempDir()
-	test := invocation{home: home}
+	home := tempDir(t)
+	test := invocation{home: home, dir: tempDir(t)}
 
 	if got := runWDFailure(t, test, "path", "missing"); !strings.Contains(got, "no warp points yet") {
 		t.Errorf("missing config error = %q, want no warp points error", got)
@@ -213,12 +255,31 @@ func TestCommandErrors(t *testing.T) {
 	if got := runWDFailure(t, test, "init", "fish"); !strings.Contains(got, "unsupported shell") {
 		t.Errorf("unsupported shell error = %q, want unsupported shell error", got)
 	}
+
+	writeWarpConfig(t, home, "")
+	for _, name := range []string{"list", "completion", "-x"} {
+		if got := runWDFailure(t, test, "add", "--", name); !strings.Contains(got, "is reserved") {
+			t.Errorf("add %s error = %q, want reserved name error", name, got)
+		}
+	}
+	if got := runWDFailure(t, test, "path", "missing"); !strings.Contains(got, `warp point "missing" not found`) {
+		t.Errorf("unknown point error = %q, want not found error", got)
+	}
+	if got := runWDFailure(t, test, "rm", "missing"); !strings.Contains(got, `warp point "missing" not found`) {
+		t.Errorf("rm unknown point error = %q, want not found error", got)
+	}
 }
 
+// writeShim installs a `wd` executable in binDir that re-runs the test binary
+// as the CLI: a batch file on Windows, a shebang script elsewhere.
 func writeShim(t *testing.T, binDir string) {
 	t.Helper()
 	shim := filepath.Join(binDir, "wd")
 	shimContents := fmt.Sprintf("#!/bin/sh\nexec %q -test.run=^TestWDHelperProcess$ -- \"$@\"\n", os.Args[0])
+	if runtime.GOOS == "windows" {
+		shim += ".cmd"
+		shimContents = fmt.Sprintf("@\"%s\" \"-test.run=^TestWDHelperProcess$\" -- %%*\r\n@exit /b %%ERRORLEVEL%%\r\n", os.Args[0])
+	}
 	if err := os.WriteFile(shim, []byte(shimContents), 0o755); err != nil {
 		t.Fatal(err)
 	}
@@ -284,8 +345,8 @@ func lastLine(output string) string {
 // warping to a point, passthrough commands bypassing the warp, failed warps
 // leaving the shell where it started, and paths containing spaces.
 func runShellWrapperSuite(t *testing.T, adapter shellAdapter) {
-	if runtime.GOOS == "windows" {
-		t.Skip("the shim relies on a POSIX shebang script, not exercised on windows")
+	if runtime.GOOS == "windows" && adapter.name != "powershell" {
+		t.Skipf("the %s wrapper is not exercised on windows", adapter.name)
 	}
 
 	var binary string
@@ -299,11 +360,11 @@ func runShellWrapperSuite(t *testing.T, adapter shellAdapter) {
 		t.Skipf("no %s binary installed (tried %s)", adapter.name, strings.Join(adapter.binaries, ", "))
 	}
 
-	home := t.TempDir()
-	binDir := t.TempDir()
+	home := tempDir(t)
+	binDir := tempDir(t)
 	writeShim(t, binDir)
 
-	wrapper := filepath.Join(t.TempDir(), "wd-wrapper"+adapter.wrapperExt)
+	wrapper := filepath.Join(tempDir(t), "wd-wrapper"+adapter.wrapperExt)
 	if err := os.WriteFile(wrapper, []byte(runWD(t, invocation{home: home}, "init", adapter.initArg)), 0o600); err != nil {
 		t.Fatal(err)
 	}
@@ -321,8 +382,8 @@ func runShellWrapperSuite(t *testing.T, adapter shellAdapter) {
 	}
 
 	t.Run("WarpsToPoint", func(t *testing.T) {
-		target := t.TempDir()
-		start := t.TempDir()
+		target := tempDir(t)
+		start := tempDir(t)
 		writeWarpConfig(t, home, "alpha:"+target+"\n")
 
 		output := run(t, start, "wd alpha; "+adapter.pwdExpr)
@@ -332,8 +393,8 @@ func runShellWrapperSuite(t *testing.T, adapter shellAdapter) {
 	})
 
 	t.Run("PassthroughCommandDoesNotWarp", func(t *testing.T) {
-		target := t.TempDir()
-		start := t.TempDir()
+		target := tempDir(t)
+		start := tempDir(t)
 		writeWarpConfig(t, home, "alpha:"+target+"\n")
 
 		output := run(t, start, "wd list; "+adapter.pwdExpr)
@@ -345,9 +406,29 @@ func runShellWrapperSuite(t *testing.T, adapter shellAdapter) {
 		}
 	})
 
+	t.Run("CompletionCommandDoesNotWarp", func(t *testing.T) {
+		start := tempDir(t)
+
+		output := run(t, start, "wd completion bash; "+adapter.exitExpr+"; "+adapter.pwdExpr)
+		if !strings.Contains(output, "bash completion") || !strings.Contains(output, "EXIT:0") {
+			t.Errorf("completion output = %q, want the generated completion script and EXIT:0", output)
+		}
+		if got, want := lastLine(output), start; got != want {
+			t.Errorf("cwd after completion command = %q, want unchanged %q", got, want)
+		}
+
+		output = run(t, start, "wd __complete ad; "+adapter.exitExpr+"; "+adapter.pwdExpr)
+		if !strings.Contains(output, "addcd") || !strings.Contains(output, "EXIT:0") {
+			t.Errorf("__complete output = %q, want completion candidates and EXIT:0", output)
+		}
+		if got, want := lastLine(output), start; got != want {
+			t.Errorf("cwd after __complete = %q, want unchanged %q", got, want)
+		}
+	})
+
 	t.Run("UnknownPointFailsWithoutWarping", func(t *testing.T) {
-		start := t.TempDir()
-		writeWarpConfig(t, home, "alpha:"+t.TempDir()+"\n")
+		start := tempDir(t)
+		writeWarpConfig(t, home, "alpha:"+tempDir(t)+"\n")
 
 		output := run(t, start, "wd missing; "+adapter.exitExpr+"; "+adapter.pwdExpr)
 		if !strings.Contains(output, "EXIT:1") {
@@ -359,11 +440,11 @@ func runShellWrapperSuite(t *testing.T, adapter shellAdapter) {
 	})
 
 	t.Run("WarpsToPointWithSpaces", func(t *testing.T) {
-		target := filepath.Join(t.TempDir(), "point with spaces")
+		target := filepath.Join(tempDir(t), "point with spaces")
 		if err := os.MkdirAll(target, 0o755); err != nil {
 			t.Fatal(err)
 		}
-		start := t.TempDir()
+		start := tempDir(t)
 		writeWarpConfig(t, home, "spacey:"+target+"\n")
 
 		output := run(t, start, "wd spacey; "+adapter.pwdExpr)
@@ -378,7 +459,7 @@ func TestZshWrapperSuite(t *testing.T)        { runShellWrapperSuite(t, zshAdapt
 func TestPowerShellWrapperSuite(t *testing.T) { runShellWrapperSuite(t, powershellAdapter) }
 
 func TestInformationalVerbs(t *testing.T) {
-	home := t.TempDir()
+	home := tempDir(t)
 	test := invocation{home: home}
 
 	if got := runWD(t, test, "init", "bash"); !strings.Contains(got, "wd_cd()") || !strings.Contains(got, "target_path=$(command wd \"$@\")") || !strings.Contains(got, "wd_cd \"$@\"") {
