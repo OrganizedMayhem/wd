@@ -324,19 +324,32 @@ func writeShim(t *testing.T, binDir string) {
 
 // writeFakeFzf installs an `fzf` in a new directory that selects the input
 // line for the warp point named by WD_FZF_PICK, failing like a cancelled fzf
-// when there is none, and returns that directory.
-func writeFakeFzf(t *testing.T) string {
+// when there is none, and returns that directory. Given a PowerShell binary,
+// the fake is a PowerShell script run by it, so the logic the Windows tests
+// rely on also runs wherever pwsh is installed; otherwise it is a sh script.
+func writeFakeFzf(t *testing.T, powershell string) string {
 	t.Helper()
 	dir := tempDir(t)
 	name := filepath.Join(dir, "fzf")
-	// Only shell builtins: the wrapper tests run with nothing else on PATH.
-	contents := "#!/bin/sh\nstatus=130\nwhile IFS= read -r line; do\n  case $line in \"$WD_FZF_PICK\":*) printf '%s\\n' \"$line\"; status=0 ;; esac\ndone\nexit $status\n"
-	if runtime.GOOS == "windows" {
-		name += ".cmd"
-		contents = "@\"%SystemRoot%\\System32\\findstr.exe\" /b /c:\"%WD_FZF_PICK%:\"\r\n@if errorlevel 1 exit /b 130\r\n"
+	write := func(name, contents string) {
+		t.Helper()
+		if err := os.WriteFile(name, []byte(contents), 0o755); err != nil {
+			t.Fatal(err)
+		}
 	}
-	if err := os.WriteFile(name, []byte(contents), 0o755); err != nil {
-		t.Fatal(err)
+
+	if powershell == "" {
+		// Only shell builtins: the wrapper tests run with nothing else on PATH.
+		write(name, "#!/bin/sh\nstatus=130\nwhile IFS= read -r line; do\n  case $line in \"$WD_FZF_PICK\":*) printf '%s\\n' \"$line\"; status=0 ;; esac\ndone\nexit $status\n")
+		return dir
+	}
+
+	script := filepath.Join(dir, "fake-fzf.ps1")
+	write(script, "$status = 130\nforeach ($line in $input) {\n    if ($line.StartsWith($env:WD_FZF_PICK + ':')) {\n        $line\n        $status = 0\n    }\n}\nexit $status\n")
+	if runtime.GOOS == "windows" {
+		write(name+".cmd", fmt.Sprintf("@\"%s\" -NoProfile -NonInteractive -File \"%s\"\r\n@exit /b %%ERRORLEVEL%%\r\n", powershell, script))
+	} else {
+		write(name, fmt.Sprintf("#!/bin/sh\nexec %q -NoProfile -NonInteractive -File %q\n", powershell, script))
 	}
 	return dir
 }
@@ -405,10 +418,10 @@ func runShellWrapperSuite(t *testing.T, adapter shellAdapter) {
 		t.Skipf("the %s wrapper is not exercised on windows", adapter.name)
 	}
 
-	var binary string
+	var binary, binaryPath string
 	for _, candidate := range adapter.binaries {
-		if _, err := exec.LookPath(candidate); err == nil {
-			binary = candidate
+		if path, err := exec.LookPath(candidate); err == nil {
+			binary, binaryPath = candidate, path
 			break
 		}
 	}
@@ -508,7 +521,11 @@ func runShellWrapperSuite(t *testing.T, adapter shellAdapter) {
 		}
 	})
 
-	fzfPath := "PATH=" + writeFakeFzf(t) + string(os.PathListSeparator) + binDir
+	var fakeFzfShell string
+	if adapter.name == "powershell" {
+		fakeFzfShell = binaryPath
+	}
+	fzfPath := "PATH=" + writeFakeFzf(t, fakeFzfShell) + string(os.PathListSeparator) + binDir
 
 	t.Run("NoArgsWarpsToFzfSelection", func(t *testing.T) {
 		target := filepath.Join(tempDir(t), "picked point")
