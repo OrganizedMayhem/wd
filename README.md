@@ -36,6 +36,18 @@ Invoke-Expression (@(wd init powershell) -join "`n")
 
 The wrapper passes `wd`'s own commands (`list`, `completion`, and so on) straight through instead of treating them as warp points, and that list is built from the installed `wd` when `wd init` runs. Loading it with `eval`/`Invoke-Expression` as above rebuilds it in every new shell. If you saved the output of `wd init` to a file instead, regenerate that file after upgrading `wd` so new commands keep working.
 
+### Tab completion
+
+To complete commands and warp point names (`wd pr<Tab>`, `wd rm <Tab>`), also load the completion script after the wrapper:
+
+```bash
+source <(wd completion bash)  # or: source <(wd completion zsh)
+```
+
+```powershell
+wd completion powershell | Out-String | Invoke-Expression
+```
+
 ## Usage
 
 ### Add a warp point
@@ -52,6 +64,14 @@ wd add
 
 ```bash
 wd myproject
+```
+
+### Pick a warp point with fzf
+
+If [fzf](https://github.com/junegunn/fzf) is installed, running `wd` with no arguments opens a fuzzy finder over your warp points and warps to the one you pick. Without fzf, it prints the help as before.
+
+```bash
+wd
 ```
 
 ### List all warp points

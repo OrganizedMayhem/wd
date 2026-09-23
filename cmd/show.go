@@ -11,9 +11,10 @@ import (
 )
 
 var showCmd = &cobra.Command{
-	Use:   "show [point]",
-	Short: "Print path to given warp point",
-	Args:  cobra.MaximumNArgs(1),
+	Use:               "show [point]",
+	Short:             "Print path to given warp point",
+	Args:              cobra.MaximumNArgs(1),
+	ValidArgsFunction: completeWarpPoint,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if len(args) > 0 {
 			path, err := getWarpPoint(args[0])
