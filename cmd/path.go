@@ -7,9 +7,10 @@ import (
 )
 
 var pathCmd = &cobra.Command{
-	Use:   "path <point>",
-	Short: "Show the path to given warp point (pwd)",
-	Args:  cobra.ExactArgs(1),
+	Use:               "path <point>",
+	Short:             "Show the path to given warp point (pwd)",
+	Args:              cobra.ExactArgs(1),
+	ValidArgsFunction: completeWarpPoint,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		path, err := getWarpPoint(args[0])
 		if err != nil {

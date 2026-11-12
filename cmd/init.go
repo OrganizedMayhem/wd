@@ -57,9 +57,29 @@ const posixScript = `wd_cd() {
     fi
 }
 
+wd_pick() {
+    local points selection
+    points=$(command wd list) || return
+    # Every warp point is listed as name:path; anything else is a message.
+    case "$points" in
+        *:*) ;;
+        *)
+            printf '%s\n' "$points"
+            return
+            ;;
+    esac
+
+    selection=$(printf '%s\n' "$points" | fzf --delimiter=: --prompt='wd> ') || return
+    wd_cd "${selection%%:*}"
+}
+
 wd() {
     if [ $# -eq 0 ]; then
-        command wd
+        if command -v fzf >/dev/null 2>&1; then
+            wd_pick
+        else
+            command wd
+        fi
         return
     fi
 
@@ -77,7 +97,21 @@ const powershellScript = `function wd {
     $wdBin = (Get-Command wd -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
 
     if ($args.Count -eq 0) {
-        & $wdBin
+        if (-not (Get-Command fzf -CommandType Application -ErrorAction SilentlyContinue)) {
+            & $wdBin
+            return
+        }
+
+        $points = @(& $wdBin list)
+        # Every warp point is listed as name:path; anything else is a message.
+        if (-not ($points -match ':')) {
+            $points
+            return
+        }
+        $selection = $points | fzf --delimiter=: --prompt='wd> '
+        if ($selection) {
+            wd ($selection -split ':', 2)[0]
+        }
         return
     }
 

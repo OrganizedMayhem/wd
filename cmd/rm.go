@@ -7,9 +7,10 @@ import (
 )
 
 var rmCmd = &cobra.Command{
-	Use:   "rm <point>",
-	Short: "Removes the given warp point",
-	Args:  cobra.ExactArgs(1),
+	Use:               "rm <point>",
+	Short:             "Removes the given warp point",
+	Args:              cobra.ExactArgs(1),
+	ValidArgsFunction: completeWarpPoint,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		store, err := newStore()
 		if err != nil {

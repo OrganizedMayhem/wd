@@ -8,9 +8,10 @@ import (
 )
 
 var lsCmd = &cobra.Command{
-	Use:   "ls <point>",
-	Short: "Show files from given warp point (ls)",
-	Args:  cobra.ExactArgs(1),
+	Use:               "ls <point>",
+	Short:             "Show files from given warp point (ls)",
+	Args:              cobra.ExactArgs(1),
+	ValidArgsFunction: completeWarpPoint,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		path, err := getWarpPoint(args[0])
 		if err != nil {

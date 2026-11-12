@@ -8,9 +8,10 @@ import (
 )
 
 var openCmd = &cobra.Command{
-	Use:   "open <point>",
-	Short: "Open the warp point in the default file explorer",
-	Args:  cobra.ExactArgs(1),
+	Use:               "open <point>",
+	Short:             "Open the warp point in the default file explorer",
+	Args:              cobra.ExactArgs(1),
+	ValidArgsFunction: completeWarpPoint,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		path, err := getWarpPoint(args[0])
 		if err != nil {

@@ -13,12 +13,13 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:           "wd",
-	Short:         "Warp to custom directories in terminal",
-	Long:          `wd (warp directory) is a tool that lets you jump to custom directories in the terminal`,
-	Args:          cobra.ArbitraryArgs,
-	SilenceErrors: true,
-	SilenceUsage:  true,
+	Use:               "wd",
+	Short:             "Warp to custom directories in terminal",
+	Long:              `wd (warp directory) is a tool that lets you jump to custom directories in the terminal`,
+	Args:              cobra.ArbitraryArgs,
+	SilenceErrors:     true,
+	SilenceUsage:      true,
+	ValidArgsFunction: completeWarpPoint,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		versionFlag, _ := cmd.Flags().GetBool("version")
 		if versionFlag {

@@ -1,14 +1,353 @@
 {
   "directed": false,
   "multigraph": false,
-  "graph": {},
+  "graph": {
+    "hyperedges": [
+      {
+        "id": "ci_pipeline_test_build_checksum",
+        "label": "CI pipeline: test -> build -> checksums",
+        "nodes": [
+          "_github_workflows_ci_test",
+          "_github_workflows_ci_build",
+          "_github_workflows_ci_checksums"
+        ],
+        "relation": "form",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": ".github/workflows/ci.yml"
+      },
+      {
+        "id": "release_pipeline_validate_build_publish",
+        "label": "Release pipeline: validate-tag -> build -> release",
+        "nodes": [
+          "_github_workflows_release_validate_tag",
+          "_github_workflows_release_build",
+          "_github_workflows_release_release_job"
+        ],
+        "relation": "form",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": ".github/workflows/release.yml"
+      },
+      {
+        "id": "wd_shell_integration",
+        "label": "wd shell integration (wrapper, completion, fzf picker)",
+        "nodes": [
+          "readme_shell_wrapper",
+          "readme_tab_completion",
+          "readme_fzf_picker"
+        ],
+        "relation": "participate_in",
+        "confidence": "INFERRED",
+        "confidence_score": 0.85,
+        "source_file": "README.md"
+      }
+    ]
+  },
   "nodes": [
+    {
+      "id": "go_type_os_exec_cmd",
+      "label": "os/exec.Cmd",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "os/exec.cmd",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "go_type_testing_t",
+      "label": "testing.T",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testing.t",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "main_test",
+      "label": "main_test.go",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "main_test.go",
+      "source_file": "main_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "main_test_completions",
+      "label": "completions()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "completions()",
+      "source_file": "main_test.go",
+      "source_location": "L276"
+    },
+    {
+      "id": "main_test_helperenv",
+      "label": "helperEnv()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "helperenv()",
+      "source_file": "main_test.go",
+      "source_location": "L89"
+    },
+    {
+      "id": "main_test_lastline",
+      "label": "lastLine()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "lastline()",
+      "source_file": "main_test.go",
+      "source_location": "L408"
+    },
+    {
+      "id": "main_test_runshellwrappersuite",
+      "label": "runShellWrapperSuite()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "runshellwrappersuite()",
+      "source_file": "main_test.go",
+      "source_location": "L416"
+    },
+    {
+      "id": "main_test_runwd",
+      "label": "runWD()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "runwd()",
+      "source_file": "main_test.go",
+      "source_location": "L45"
+    },
+    {
+      "id": "main_test_runwdfailure",
+      "label": "runWDFailure()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "runwdfailure()",
+      "source_file": "main_test.go",
+      "source_location": "L60"
+    },
+    {
+      "id": "main_test_tempdir",
+      "label": "tempDir()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "tempdir()",
+      "source_file": "main_test.go",
+      "source_location": "L78"
+    },
+    {
+      "id": "main_test_testaddcdstoresabsolutepath",
+      "label": "TestAddcdStoresAbsolutePath()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testaddcdstoresabsolutepath()",
+      "source_file": "main_test.go",
+      "source_location": "L156"
+    },
+    {
+      "id": "main_test_testbashwrappersuite",
+      "label": "TestBashWrapperSuite()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testbashwrappersuite()",
+      "source_file": "main_test.go",
+      "source_location": "L584"
+    },
+    {
+      "id": "main_test_testcleanverbremovesmissingwarppoints",
+      "label": "TestCleanVerbRemovesMissingWarpPoints()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testcleanverbremovesmissingwarppoints()",
+      "source_file": "main_test.go",
+      "source_location": "L184"
+    },
+    {
+      "id": "main_test_testcommanderrors",
+      "label": "TestCommandErrors()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testcommanderrors()",
+      "source_file": "main_test.go",
+      "source_location": "L245"
+    },
+    {
+      "id": "main_test_testinformationalverbs",
+      "label": "TestInformationalVerbs()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testinformationalverbs()",
+      "source_file": "main_test.go",
+      "source_location": "L588"
+    },
+    {
+      "id": "main_test_testlsverblistswarppointcontents",
+      "label": "TestLSVerbListsWarpPointContents()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testlsverblistswarppointcontents()",
+      "source_file": "main_test.go",
+      "source_location": "L203"
+    },
+    {
+      "id": "main_test_testopenverbusesplatformopener",
+      "label": "TestOpenVerbUsesPlatformOpener()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testopenverbusesplatformopener()",
+      "source_file": "main_test.go",
+      "source_location": "L216"
+    },
+    {
+      "id": "main_test_testpowershellwrappersuite",
+      "label": "TestPowerShellWrapperSuite()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testpowershellwrappersuite()",
+      "source_file": "main_test.go",
+      "source_location": "L586"
+    },
+    {
+      "id": "main_test_testshowmatchessymlinkeddirectory",
+      "label": "TestShowMatchesSymlinkedDirectory()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testshowmatchessymlinkeddirectory()",
+      "source_file": "main_test.go",
+      "source_location": "L170"
+    },
+    {
+      "id": "main_test_testwarppointcompletion",
+      "label": "TestWarpPointCompletion()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testwarppointcompletion()",
+      "source_file": "main_test.go",
+      "source_location": "L288"
+    },
+    {
+      "id": "main_test_testwarppointverbs",
+      "label": "TestWarpPointVerbs()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testwarppointverbs()",
+      "source_file": "main_test.go",
+      "source_location": "L113"
+    },
+    {
+      "id": "main_test_testzshwrappersuite",
+      "label": "TestZshWrapperSuite()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "testzshwrappersuite()",
+      "source_file": "main_test.go",
+      "source_location": "L585"
+    },
+    {
+      "id": "main_test_writefakefzf",
+      "label": "writeFakeFzf()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "writefakefzf()",
+      "source_file": "main_test.go",
+      "source_location": "L330"
+    },
+    {
+      "id": "main_test_writeshim",
+      "label": "writeShim()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "writeshim()",
+      "source_file": "main_test.go",
+      "source_location": "L312"
+    },
+    {
+      "id": "main_test_writewarpconfig",
+      "label": "writeWarpConfig()",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "writewarpconfig()",
+      "source_file": "main_test.go",
+      "source_location": "L106"
+    },
+    {
+      "id": "wd_invocation",
+      "label": "invocation",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "invocation",
+      "source_file": "main_test.go",
+      "source_location": "L39"
+    },
+    {
+      "id": "wd_shelladapter",
+      "label": "shellAdapter",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "CLI Integration Tests",
+      "file_type": "code",
+      "norm_label": "shelladapter",
+      "source_file": "main_test.go",
+      "source_location": "L360"
+    },
     {
       "id": "cmd_root",
       "label": "root.go",
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Root Command & Wiring",
+      "community": 1,
+      "community_name": "Root Command & Entry",
       "file_type": "code",
       "norm_label": "root.go",
       "source_file": "cmd/root.go",
@@ -18,85 +357,74 @@
       "id": "cmd_root_addpoint",
       "label": "addPoint()",
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Root Command & Wiring",
+      "community": 1,
+      "community_name": "Root Command & Entry",
       "file_type": "code",
       "norm_label": "addpoint()",
       "source_file": "cmd/root.go",
-      "source_location": "L69"
+      "source_location": "L70"
     },
     {
       "id": "cmd_root_execute",
       "label": "Execute()",
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Root Command & Wiring",
+      "community": 1,
+      "community_name": "Root Command & Entry",
       "file_type": "code",
       "norm_label": "execute()",
       "source_file": "cmd/root.go",
-      "source_location": "L85"
+      "source_location": "L90"
     },
     {
       "id": "cmd_root_getwarppoint",
       "label": "getWarpPoint()",
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Root Command & Wiring",
+      "community": 1,
+      "community_name": "Root Command & Entry",
       "file_type": "code",
       "norm_label": "getwarppoint()",
       "source_file": "cmd/root.go",
-      "source_location": "L41"
+      "source_location": "L42"
     },
     {
       "id": "cmd_root_init",
       "label": "init()",
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Root Command & Wiring",
+      "community": 1,
+      "community_name": "Root Command & Entry",
       "file_type": "code",
       "norm_label": "init()",
       "source_file": "cmd/root.go",
-      "source_location": "L92"
+      "source_location": "L97"
     },
     {
       "id": "cmd_root_passthroughargs",
       "label": "passthroughArgs()",
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Root Command & Wiring",
+      "community": 1,
+      "community_name": "Root Command & Entry",
       "file_type": "code",
       "norm_label": "passthroughargs()",
       "source_file": "cmd/root.go",
-      "source_location": "L58"
+      "source_location": "L59"
     },
     {
       "id": "cmd_store_newstore",
       "label": "newStore()",
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Root Command & Wiring",
+      "community": 1,
+      "community_name": "Root Command & Entry",
       "file_type": "code",
       "norm_label": "newstore()",
       "source_file": "cmd/store.go",
       "source_location": "L24"
     },
     {
-      "id": "go_type_github_com_spf13_cobra_command",
-      "label": "github.com/spf13/cobra.Command",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Root Command & Wiring",
-      "file_type": "code",
-      "norm_label": "github.com/spf13/cobra.command",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
       "id": "main_main",
       "label": "main()",
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Root Command & Wiring",
+      "community": 1,
+      "community_name": "Root Command & Entry",
       "file_type": "code",
       "norm_label": "main()",
       "source_file": "main.go",
@@ -106,232 +434,122 @@
       "id": "main_test_testwdhelperprocess",
       "label": "TestWDHelperProcess()",
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Root Command & Wiring",
+      "community": 1,
+      "community_name": "Root Command & Entry",
       "file_type": "code",
       "norm_label": "testwdhelperprocess()",
       "source_file": "main_test.go",
-      "source_location": "L17"
+      "source_location": "L18"
     },
     {
-      "id": "go_type_testing_t",
-      "label": "testing.T",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "CLI Verb Integration Tests",
-      "file_type": "code",
-      "norm_label": "testing.t",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "main_test_runwd",
-      "label": "runWD()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "CLI Verb Integration Tests",
-      "file_type": "code",
-      "norm_label": "runwd()",
-      "source_file": "main_test.go",
-      "source_location": "L44"
-    },
-    {
-      "id": "main_test_tempdir",
-      "label": "tempDir()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "CLI Verb Integration Tests",
-      "file_type": "code",
-      "norm_label": "tempdir()",
-      "source_file": "main_test.go",
-      "source_location": "L77"
-    },
-    {
-      "id": "main_test_testaddcdstoresabsolutepath",
-      "label": "TestAddcdStoresAbsolutePath()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "CLI Verb Integration Tests",
-      "file_type": "code",
-      "norm_label": "testaddcdstoresabsolutepath()",
-      "source_file": "main_test.go",
-      "source_location": "L155"
-    },
-    {
-      "id": "main_test_testcleanverbremovesmissingwarppoints",
-      "label": "TestCleanVerbRemovesMissingWarpPoints()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "CLI Verb Integration Tests",
-      "file_type": "code",
-      "norm_label": "testcleanverbremovesmissingwarppoints()",
-      "source_file": "main_test.go",
-      "source_location": "L183"
-    },
-    {
-      "id": "main_test_testinformationalverbs",
-      "label": "TestInformationalVerbs()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "CLI Verb Integration Tests",
-      "file_type": "code",
-      "norm_label": "testinformationalverbs()",
-      "source_file": "main_test.go",
-      "source_location": "L461"
-    },
-    {
-      "id": "main_test_testlsverblistswarppointcontents",
-      "label": "TestLSVerbListsWarpPointContents()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "CLI Verb Integration Tests",
-      "file_type": "code",
-      "norm_label": "testlsverblistswarppointcontents()",
-      "source_file": "main_test.go",
-      "source_location": "L202"
-    },
-    {
-      "id": "main_test_testopenverbusesplatformopener",
-      "label": "TestOpenVerbUsesPlatformOpener()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "CLI Verb Integration Tests",
-      "file_type": "code",
-      "norm_label": "testopenverbusesplatformopener()",
-      "source_file": "main_test.go",
-      "source_location": "L215"
-    },
-    {
-      "id": "main_test_testshowmatchessymlinkeddirectory",
-      "label": "TestShowMatchesSymlinkedDirectory()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "CLI Verb Integration Tests",
-      "file_type": "code",
-      "norm_label": "testshowmatchessymlinkeddirectory()",
-      "source_file": "main_test.go",
-      "source_location": "L169"
-    },
-    {
-      "id": "main_test_testwarppointverbs",
-      "label": "TestWarpPointVerbs()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "CLI Verb Integration Tests",
-      "file_type": "code",
-      "norm_label": "testwarppointverbs()",
-      "source_file": "main_test.go",
-      "source_location": "L112"
-    },
-    {
-      "id": "main_test_writewarpconfig",
-      "label": "writeWarpConfig()",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "CLI Verb Integration Tests",
-      "file_type": "code",
-      "norm_label": "writewarpconfig()",
-      "source_file": "main_test.go",
-      "source_location": "L105"
-    },
-    {
-      "id": "main_test_helperenv",
-      "label": "helperEnv()",
+      "id": "cmd_add",
+      "label": "add.go",
       "_origin": "ast",
       "community": 10,
-      "community_name": "Test Process Helpers",
+      "community_name": "Add Commands & Store Tests",
       "file_type": "code",
-      "norm_label": "helperenv()",
-      "source_file": "main_test.go",
-      "source_location": "L88"
-    },
-    {
-      "id": "main_test_runwdfailure",
-      "label": "runWDFailure()",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "Test Process Helpers",
-      "file_type": "code",
-      "norm_label": "runwdfailure()",
-      "source_file": "main_test.go",
-      "source_location": "L59"
-    },
-    {
-      "id": "main_test_testcommanderrors",
-      "label": "TestCommandErrors()",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "Test Process Helpers",
-      "file_type": "code",
-      "norm_label": "testcommanderrors()",
-      "source_file": "main_test.go",
-      "source_location": "L244"
-    },
-    {
-      "id": "wd_invocation",
-      "label": "invocation",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "Test Process Helpers",
-      "file_type": "code",
-      "norm_label": "invocation",
-      "source_file": "main_test.go",
-      "source_location": "L38"
-    },
-    {
-      "id": "cmd_ls",
-      "label": "ls.go",
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "LS Command",
-      "file_type": "code",
-      "norm_label": "ls.go",
-      "source_file": "cmd/ls.go",
+      "norm_label": "add.go",
+      "source_file": "cmd/add.go",
       "source_location": "L1"
     },
     {
-      "id": "cmd_ls_init",
+      "id": "cmd_add_init",
       "label": "init()",
       "_origin": "ast",
-      "community": 11,
-      "community_name": "LS Command",
+      "community": 10,
+      "community_name": "Add Commands & Store Tests",
       "file_type": "code",
       "norm_label": "init()",
-      "source_file": "cmd/ls.go",
-      "source_location": "L30"
+      "source_file": "cmd/add.go",
+      "source_location": "L32"
     },
     {
-      "id": "cmd_path",
-      "label": "path.go",
+      "id": "cmd_addcd",
+      "label": "addcd.go",
       "_origin": "ast",
-      "community": 12,
-      "community_name": "Path Command & Entry",
+      "community": 10,
+      "community_name": "Add Commands & Store Tests",
       "file_type": "code",
-      "norm_label": "path.go",
-      "source_file": "cmd/path.go",
+      "norm_label": "addcd.go",
+      "source_file": "cmd/addcd.go",
       "source_location": "L1"
     },
     {
-      "id": "cmd_path_init",
+      "id": "cmd_addcd_init",
+      "label": "init()",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "Add Commands & Store Tests",
+      "file_type": "code",
+      "norm_label": "init()",
+      "source_file": "cmd/addcd.go",
+      "source_location": "L28"
+    },
+    {
+      "id": "cmd_store_test",
+      "label": "store_test.go",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "Add Commands & Store Tests",
+      "file_type": "code",
+      "norm_label": "store_test.go",
+      "source_file": "cmd/store_test.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "cmd_store_test_teststoreloadrejectsmalformedconfig",
+      "label": "TestStoreLoadRejectsMalformedConfig()",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "Add Commands & Store Tests",
+      "file_type": "code",
+      "norm_label": "teststoreloadrejectsmalformedconfig()",
+      "source_file": "cmd/store_test.go",
+      "source_location": "L54"
+    },
+    {
+      "id": "cmd_store_test_teststoreputreplacesexistingpoint",
+      "label": "TestStorePutReplacesExistingPoint()",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "Add Commands & Store Tests",
+      "file_type": "code",
+      "norm_label": "teststoreputreplacesexistingpoint()",
+      "source_file": "cmd/store_test.go",
+      "source_location": "L11"
+    },
+    {
+      "id": "cmd_store_test_teststoreremoveandcleanwriteconsistentconfig",
+      "label": "TestStoreRemoveAndCleanWriteConsistentConfig()",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "Add Commands & Store Tests",
+      "file_type": "code",
+      "norm_label": "teststoreremoveandcleanwriteconsistentconfig()",
+      "source_file": "cmd/store_test.go",
+      "source_location": "L69"
+    },
+    {
+      "id": "cmd_open",
+      "label": "open.go",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "Open Command",
+      "file_type": "code",
+      "norm_label": "open.go",
+      "source_file": "cmd/open.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "cmd_open_init",
       "label": "init()",
       "_origin": "ast",
       "community": 12,
-      "community_name": "Path Command & Entry",
+      "community_name": "Open Command",
       "file_type": "code",
       "norm_label": "init()",
-      "source_file": "cmd/path.go",
-      "source_location": "L23"
-    },
-    {
-      "id": "main",
-      "label": "main.go",
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "Path Command & Entry",
-      "file_type": "code",
-      "norm_label": "main.go",
-      "source_file": "main.go",
-      "source_location": "L1"
+      "source_file": "cmd/open.go",
+      "source_location": "L36"
     },
     {
       "id": "pkg_github_com_organizedmayhem_wd",
@@ -347,10 +565,54 @@
       "type": "package"
     },
     {
+      "id": "cmd_init",
+      "label": "init.go",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "Init & Path Commands",
+      "file_type": "code",
+      "norm_label": "init.go",
+      "source_file": "cmd/init.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "cmd_init_init",
+      "label": "init()",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "Init & Path Commands",
+      "file_type": "code",
+      "norm_label": "init()",
+      "source_file": "cmd/init.go",
+      "source_location": "L138"
+    },
+    {
+      "id": "cmd_path",
+      "label": "path.go",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "Init & Path Commands",
+      "file_type": "code",
+      "norm_label": "path.go",
+      "source_file": "cmd/path.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "cmd_path_init",
+      "label": "init()",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "Init & Path Commands",
+      "file_type": "code",
+      "norm_label": "init()",
+      "source_file": "cmd/path.go",
+      "source_location": "L24"
+    },
+    {
       "id": "cmd_open_darwin",
       "label": "open_darwin.go",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "Platform Directory Opener",
       "file_type": "code",
       "norm_label": "open_darwin.go",
@@ -361,7 +623,7 @@
       "id": "cmd_open_darwin_opendir",
       "label": "openDir()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "Platform Directory Opener",
       "file_type": "code",
       "norm_label": "opendir()",
@@ -369,21 +631,10 @@
       "source_location": "L7"
     },
     {
-      "id": "cmd_open_linux",
-      "label": "open_linux.go",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "Platform Directory Opener",
-      "file_type": "code",
-      "norm_label": "open_linux.go",
-      "source_file": "cmd/open_linux.go",
-      "source_location": "L1"
-    },
-    {
       "id": "cmd_open_linux_opendir",
       "label": "openDir()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "Platform Directory Opener",
       "file_type": "code",
       "norm_label": "opendir()",
@@ -391,10 +642,21 @@
       "source_location": "L7"
     },
     {
+      "id": "cmd_open_runopener",
+      "label": "runOpener()",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "Platform Directory Opener",
+      "file_type": "code",
+      "norm_label": "runopener()",
+      "source_file": "cmd/open.go",
+      "source_location": "L29"
+    },
+    {
       "id": "cmd_open_windows",
       "label": "open_windows.go",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "Platform Directory Opener",
       "file_type": "code",
       "norm_label": "open_windows.go",
@@ -405,21 +667,21 @@
       "id": "cmd_open_windows_opendir",
       "label": "openDir()",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "Platform Directory Opener",
       "file_type": "code",
       "norm_label": "opendir()",
       "source_file": "cmd/open_windows.go",
-      "source_location": "L14"
+      "source_location": "L18"
     },
     {
-      "id": "go_type_os_exec_cmd",
-      "label": "os/exec.Cmd",
+      "id": "go_type_github_com_spf13_cobra_command",
+      "label": "github.com/spf13/cobra.Command",
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "Platform Directory Opener",
       "file_type": "code",
-      "norm_label": "os/exec.cmd",
+      "norm_label": "github.com/spf13/cobra.command",
       "source_file": "",
       "source_location": ""
     },
@@ -427,7 +689,7 @@
       "id": "cmd_store",
       "label": "Store",
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "community_name": "Warp Point Store",
       "file_type": "code",
       "norm_label": "store",
@@ -438,7 +700,7 @@
       "id": "cmd_store_clean",
       "label": ".Clean()",
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "community_name": "Warp Point Store",
       "file_type": "code",
       "norm_label": ".clean()",
@@ -449,7 +711,7 @@
       "id": "cmd_store_get",
       "label": ".Get()",
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "community_name": "Warp Point Store",
       "file_type": "code",
       "norm_label": ".get()",
@@ -460,7 +722,7 @@
       "id": "cmd_store_load",
       "label": ".Load()",
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "community_name": "Warp Point Store",
       "file_type": "code",
       "norm_label": ".load()",
@@ -471,7 +733,7 @@
       "id": "cmd_store_put",
       "label": ".Put()",
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "community_name": "Warp Point Store",
       "file_type": "code",
       "norm_label": ".put()",
@@ -482,7 +744,7 @@
       "id": "cmd_store_remove",
       "label": ".Remove()",
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "community_name": "Warp Point Store",
       "file_type": "code",
       "norm_label": ".remove()",
@@ -493,7 +755,7 @@
       "id": "cmd_store_save",
       "label": ".Save()",
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "community_name": "Warp Point Store",
       "file_type": "code",
       "norm_label": ".save()",
@@ -504,7 +766,7 @@
       "id": "cmd_warppoint",
       "label": "WarpPoint",
       "_origin": "ast",
-      "community": 3,
+      "community": 4,
       "community_name": "Warp Point Store",
       "file_type": "code",
       "norm_label": "warppoint",
@@ -512,143 +774,44 @@
       "source_location": "L14"
     },
     {
-      "id": "main_test",
-      "label": "main_test.go",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shell Wrapper Tests",
-      "file_type": "code",
-      "norm_label": "main_test.go",
-      "source_file": "main_test.go",
-      "source_location": "L1"
-    },
-    {
-      "id": "main_test_lastline",
-      "label": "lastLine()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shell Wrapper Tests",
-      "file_type": "code",
-      "norm_label": "lastline()",
-      "source_file": "main_test.go",
-      "source_location": "L339"
-    },
-    {
-      "id": "main_test_runshellwrappersuite",
-      "label": "runShellWrapperSuite()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shell Wrapper Tests",
-      "file_type": "code",
-      "norm_label": "runshellwrappersuite()",
-      "source_file": "main_test.go",
-      "source_location": "L347"
-    },
-    {
-      "id": "main_test_testbashwrappersuite",
-      "label": "TestBashWrapperSuite()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shell Wrapper Tests",
-      "file_type": "code",
-      "norm_label": "testbashwrappersuite()",
-      "source_file": "main_test.go",
-      "source_location": "L457"
-    },
-    {
-      "id": "main_test_testpowershellwrappersuite",
-      "label": "TestPowerShellWrapperSuite()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shell Wrapper Tests",
-      "file_type": "code",
-      "norm_label": "testpowershellwrappersuite()",
-      "source_file": "main_test.go",
-      "source_location": "L459"
-    },
-    {
-      "id": "main_test_testzshwrappersuite",
-      "label": "TestZshWrapperSuite()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shell Wrapper Tests",
-      "file_type": "code",
-      "norm_label": "testzshwrappersuite()",
-      "source_file": "main_test.go",
-      "source_location": "L458"
-    },
-    {
-      "id": "main_test_writeshim",
-      "label": "writeShim()",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shell Wrapper Tests",
-      "file_type": "code",
-      "norm_label": "writeshim()",
-      "source_file": "main_test.go",
-      "source_location": "L275"
-    },
-    {
-      "id": "wd_shelladapter",
-      "label": "shellAdapter",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shell Wrapper Tests",
-      "file_type": "code",
-      "norm_label": "shelladapter",
-      "source_file": "main_test.go",
-      "source_location": "L291"
-    },
-    {
-      "id": "cmd_open",
-      "label": "open.go",
+      "id": "cmd_ls",
+      "label": "ls.go",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Open, Remove & Version",
+      "community_name": "Ls & Version Commands",
       "file_type": "code",
-      "norm_label": "open.go",
-      "source_file": "cmd/open.go",
+      "norm_label": "ls.go",
+      "source_file": "cmd/ls.go",
       "source_location": "L1"
     },
     {
-      "id": "cmd_open_init",
+      "id": "cmd_ls_init",
       "label": "init()",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Open, Remove & Version",
+      "community_name": "Ls & Version Commands",
       "file_type": "code",
       "norm_label": "init()",
-      "source_file": "cmd/open.go",
-      "source_location": "L28"
+      "source_file": "cmd/ls.go",
+      "source_location": "L31"
     },
     {
-      "id": "cmd_rm",
-      "label": "rm.go",
+      "id": "cmd_open_linux",
+      "label": "open_linux.go",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Open, Remove & Version",
+      "community_name": "Ls & Version Commands",
       "file_type": "code",
-      "norm_label": "rm.go",
-      "source_file": "cmd/rm.go",
+      "norm_label": "open_linux.go",
+      "source_file": "cmd/open_linux.go",
       "source_location": "L1"
-    },
-    {
-      "id": "cmd_rm_init",
-      "label": "init()",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Open, Remove & Version",
-      "file_type": "code",
-      "norm_label": "init()",
-      "source_file": "cmd/rm.go",
-      "source_location": "L26"
     },
     {
       "id": "cmd_version",
       "label": "version.go",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Open, Remove & Version",
+      "community_name": "Ls & Version Commands",
       "file_type": "code",
       "norm_label": "version.go",
       "source_file": "cmd/version.go",
@@ -659,40 +822,95 @@
       "label": "init()",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Open, Remove & Version",
+      "community_name": "Ls & Version Commands",
       "file_type": "code",
       "norm_label": "init()",
       "source_file": "cmd/version.go",
       "source_location": "L21"
     },
     {
-      "id": "cmd_init",
-      "label": "init.go",
+      "id": "main",
+      "label": "main.go",
       "_origin": "ast",
-      "community": 6,
-      "community_name": "Init & Show Commands",
+      "community": 5,
+      "community_name": "Ls & Version Commands",
       "file_type": "code",
-      "norm_label": "init.go",
-      "source_file": "cmd/init.go",
+      "norm_label": "main.go",
+      "source_file": "main.go",
       "source_location": "L1"
     },
     {
-      "id": "cmd_init_init",
+      "id": "cmd_complete_completewarppoint",
+      "label": "completeWarpPoint()",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Warp Point Completion",
+      "file_type": "code",
+      "norm_label": "completewarppoint()",
+      "source_file": "cmd/complete.go",
+      "source_location": "L11"
+    },
+    {
+      "id": "cmd_rm",
+      "label": "rm.go",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Warp Point Completion",
+      "file_type": "code",
+      "norm_label": "rm.go",
+      "source_file": "cmd/rm.go",
+      "source_location": "L1"
+    },
+    {
+      "id": "cmd_rm_init",
       "label": "init()",
       "_origin": "ast",
       "community": 6,
-      "community_name": "Init & Show Commands",
+      "community_name": "Warp Point Completion",
       "file_type": "code",
       "norm_label": "init()",
-      "source_file": "cmd/init.go",
-      "source_location": "L104"
+      "source_file": "cmd/rm.go",
+      "source_location": "L27"
+    },
+    {
+      "id": "go_type_github_com_spf13_cobra_completion",
+      "label": "github.com/spf13/cobra.Completion",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Warp Point Completion",
+      "file_type": "code",
+      "norm_label": "github.com/spf13/cobra.completion",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "go_type_github_com_spf13_cobra_shellcompdirective",
+      "label": "github.com/spf13/cobra.ShellCompDirective",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Warp Point Completion",
+      "file_type": "code",
+      "norm_label": "github.com/spf13/cobra.shellcompdirective",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "cmd_complete",
+      "label": "complete.go",
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "Show Command",
+      "file_type": "code",
+      "norm_label": "complete.go",
+      "source_file": "cmd/complete.go",
+      "source_location": "L1"
     },
     {
       "id": "cmd_show",
       "label": "show.go",
       "_origin": "ast",
-      "community": 6,
-      "community_name": "Init & Show Commands",
+      "community": 7,
+      "community_name": "Show Command",
       "file_type": "code",
       "norm_label": "show.go",
       "source_file": "cmd/show.go",
@@ -702,30 +920,30 @@
       "id": "cmd_show_init",
       "label": "init()",
       "_origin": "ast",
-      "community": 6,
-      "community_name": "Init & Show Commands",
+      "community": 7,
+      "community_name": "Show Command",
       "file_type": "code",
       "norm_label": "init()",
       "source_file": "cmd/show.go",
-      "source_location": "L63"
+      "source_location": "L64"
     },
     {
       "id": "cmd_show_samedir",
       "label": "sameDir()",
       "_origin": "ast",
-      "community": 6,
-      "community_name": "Init & Show Commands",
+      "community": 7,
+      "community_name": "Show Command",
       "file_type": "code",
       "norm_label": "samedir()",
       "source_file": "cmd/show.go",
-      "source_location": "L70"
+      "source_location": "L71"
     },
     {
       "id": "go_type_os_fileinfo",
       "label": "os.FileInfo",
       "_origin": "ast",
-      "community": 6,
-      "community_name": "Init & Show Commands",
+      "community": 7,
+      "community_name": "Show Command",
       "file_type": "code",
       "norm_label": "os.fileinfo",
       "source_file": "",
@@ -735,8 +953,8 @@
       "id": "cmd_clean",
       "label": "clean.go",
       "_origin": "ast",
-      "community": 7,
-      "community_name": "List & Clean Commands",
+      "community": 9,
+      "community_name": "Clean & List Commands",
       "file_type": "code",
       "norm_label": "clean.go",
       "source_file": "cmd/clean.go",
@@ -746,8 +964,8 @@
       "id": "cmd_clean_init",
       "label": "init()",
       "_origin": "ast",
-      "community": 7,
-      "community_name": "List & Clean Commands",
+      "community": 9,
+      "community_name": "Clean & List Commands",
       "file_type": "code",
       "norm_label": "init()",
       "source_file": "cmd/clean.go",
@@ -757,8 +975,8 @@
       "id": "cmd_list",
       "label": "list.go",
       "_origin": "ast",
-      "community": 7,
-      "community_name": "List & Clean Commands",
+      "community": 9,
+      "community_name": "Clean & List Commands",
       "file_type": "code",
       "norm_label": "list.go",
       "source_file": "cmd/list.go",
@@ -768,106 +986,335 @@
       "id": "cmd_list_init",
       "label": "init()",
       "_origin": "ast",
-      "community": 7,
-      "community_name": "List & Clean Commands",
+      "community": 9,
+      "community_name": "Clean & List Commands",
       "file_type": "code",
       "norm_label": "init()",
       "source_file": "cmd/list.go",
       "source_location": "L35"
     },
     {
-      "id": "cmd_add",
-      "label": "add.go",
-      "_origin": "ast",
+      "id": "_github_workflows_pages_deploy",
+      "label": "Pages deploy job (stage graphify-out site)",
+      "author": null,
+      "captured_at": null,
+      "community": 11,
+      "community_name": "Pages Graph Publishing",
+      "contributor": null,
+      "file_type": "code",
+      "norm_label": "pages deploy job (stage graphify-out site)",
+      "source_file": ".github/workflows/pages.yml",
+      "source_location": "L22",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_pages_pages",
+      "label": "Pages Workflow",
+      "author": null,
+      "captured_at": null,
+      "community": 11,
+      "community_name": "Pages Graph Publishing",
+      "contributor": null,
+      "file_type": "code",
+      "norm_label": "pages workflow",
+      "rationale": "Graph is built locally; this workflow only deploys whatever is committed in graphify-out/ to GitHub Pages.",
+      "source_file": ".github/workflows/pages.yml",
+      "source_location": "L3",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_pages_graphify_out",
+      "label": "graphify-out outputs (graph.html, graph.json, GRAPH_REPORT.md)",
+      "author": null,
+      "captured_at": null,
+      "community": 11,
+      "community_name": "Pages Graph Publishing",
+      "contributor": null,
+      "file_type": "concept",
+      "norm_label": "graphify-out outputs (graph.html, graph.json, graph_report.md)",
+      "source_file": ".github/workflows/pages.yml",
+      "source_location": "L35",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_ci_build",
+      "label": "CI build job",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "code",
+      "norm_label": "ci build job",
+      "rationale": "No tag to derive a version from, so uses cmd/version.go's version suffixed with -ci.<sha> and verifies it is embedded in the binary.",
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L70",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_ci_checksums",
+      "label": "CI checksums job",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "code",
+      "norm_label": "ci checksums job",
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L148",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_ci_ci",
+      "label": "CI Workflow",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "code",
+      "norm_label": "ci workflow",
+      "rationale": "Mirrors the Release workflow (test, build, package, checksum) on every push and PR, stopping short of publishing a GitHub release.",
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L3",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_ci_security",
+      "label": "CI security job (Trivy scan)",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "code",
+      "norm_label": "ci security job (trivy scan)",
+      "rationale": "Scans dependencies, secrets and misconfigurations and uploads SARIF to GitHub code scanning.",
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L44",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_ci_test",
+      "label": "CI test job (vet + race tests, OS matrix)",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "code",
+      "norm_label": "ci test job (vet + race tests, os matrix)",
+      "rationale": "Race detector needs cgo, which the Windows runner is not set up for, so Windows runs tests without -race.",
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L14",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_release_build",
+      "label": "Release build job",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "code",
+      "norm_label": "release build job",
+      "source_file": ".github/workflows/release.yml",
+      "source_location": "L32",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_release_release",
+      "label": "Release Workflow",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "code",
+      "norm_label": "release workflow",
+      "source_file": ".github/workflows/release.yml",
+      "source_location": "L1",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_release_release_job",
+      "label": "Release publish job (checksums + GitHub release)",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "code",
+      "norm_label": "release publish job (checksums + github release)",
+      "source_file": ".github/workflows/release.yml",
+      "source_location": "L99",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_release_validate_tag",
+      "label": "Release validate-tag job (tag on main)",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "code",
+      "norm_label": "release validate-tag job (tag on main)",
+      "rationale": "Only releases tags whose commit is reachable from origin/main; otherwise skips release.",
+      "source_file": ".github/workflows/release.yml",
+      "source_location": "L13",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_ci_cross_platform_matrix",
+      "label": "Cross-platform build matrix (linux/darwin/windows x amd64/arm64)",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "concept",
+      "norm_label": "cross-platform build matrix (linux/darwin/windows x amd64/arm64)",
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L76",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_ci_trivy",
+      "label": "Trivy filesystem scan",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "concept",
+      "norm_label": "trivy filesystem scan",
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L51",
+      "source_url": null
+    },
+    {
+      "id": "_github_workflows_ci_version_ldflags",
+      "label": "Version injection via -ldflags cmd.version",
+      "author": null,
+      "captured_at": null,
+      "community": 2,
+      "community_name": "CI & Release Pipelines",
+      "contributor": null,
+      "file_type": "rationale",
+      "norm_label": "version injection via -ldflags cmd.version",
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L111",
+      "source_url": null
+    },
+    {
+      "id": "readme_commands",
+      "label": "wd commands (add, list, rm, show, open, ls, path, clean)",
+      "author": null,
+      "captured_at": null,
       "community": 8,
-      "community_name": "Add Commands",
-      "file_type": "code",
-      "norm_label": "add.go",
-      "source_file": "cmd/add.go",
-      "source_location": "L1"
+      "community_name": "Product Concepts (README)",
+      "contributor": null,
+      "file_type": "concept",
+      "norm_label": "wd commands (add, list, rm, show, open, ls, path, clean)",
+      "source_file": "README.md",
+      "source_location": "L101",
+      "source_url": null
     },
     {
-      "id": "cmd_add_init",
-      "label": "init()",
-      "_origin": "ast",
+      "id": "readme_fzf_picker",
+      "label": "fzf warp point picker (wd with no args)",
+      "author": null,
+      "captured_at": null,
       "community": 8,
-      "community_name": "Add Commands",
-      "file_type": "code",
-      "norm_label": "init()",
-      "source_file": "cmd/add.go",
-      "source_location": "L32"
+      "community_name": "Product Concepts (README)",
+      "contributor": null,
+      "file_type": "concept",
+      "norm_label": "fzf warp point picker (wd with no args)",
+      "rationale": "If fzf is installed, bare wd opens a fuzzy finder; without fzf it prints help as before.",
+      "source_file": "README.md",
+      "source_location": "L71",
+      "source_url": null
     },
     {
-      "id": "cmd_addcd",
-      "label": "addcd.go",
-      "_origin": "ast",
+      "id": "readme_mfaerevaag_wd",
+      "label": "mfaerevaag/wd zsh plugin",
+      "author": null,
+      "captured_at": null,
       "community": 8,
-      "community_name": "Add Commands",
-      "file_type": "code",
-      "norm_label": "addcd.go",
-      "source_file": "cmd/addcd.go",
-      "source_location": "L1"
+      "community_name": "Product Concepts (README)",
+      "contributor": null,
+      "file_type": "concept",
+      "norm_label": "mfaerevaag/wd zsh plugin",
+      "source_file": "README.md",
+      "source_location": "L3",
+      "source_url": null
     },
     {
-      "id": "cmd_addcd_init",
-      "label": "init()",
-      "_origin": "ast",
+      "id": "readme_tab_completion",
+      "label": "Tab completion (wd completion)",
+      "author": null,
+      "captured_at": null,
       "community": 8,
-      "community_name": "Add Commands",
-      "file_type": "code",
-      "norm_label": "init()",
-      "source_file": "cmd/addcd.go",
-      "source_location": "L28"
+      "community_name": "Product Concepts (README)",
+      "contributor": null,
+      "file_type": "concept",
+      "norm_label": "tab completion (wd completion)",
+      "source_file": "README.md",
+      "source_location": "L41",
+      "source_url": null
     },
     {
-      "id": "cmd_store_test",
-      "label": "store_test.go",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store Unit Tests",
-      "file_type": "code",
-      "norm_label": "store_test.go",
-      "source_file": "cmd/store_test.go",
-      "source_location": "L1"
+      "id": "readme_warp_point",
+      "label": "Warp point",
+      "author": null,
+      "captured_at": null,
+      "community": 8,
+      "community_name": "Product Concepts (README)",
+      "contributor": null,
+      "file_type": "concept",
+      "norm_label": "warp point",
+      "source_file": "README.md",
+      "source_location": "L57",
+      "source_url": null
     },
     {
-      "id": "cmd_store_test_teststoreloadrejectsmalformedconfig",
-      "label": "TestStoreLoadRejectsMalformedConfig()",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store Unit Tests",
-      "file_type": "code",
-      "norm_label": "teststoreloadrejectsmalformedconfig()",
-      "source_file": "cmd/store_test.go",
-      "source_location": "L50"
+      "id": "readme_wd",
+      "label": "wd (warp directory)",
+      "author": null,
+      "captured_at": null,
+      "community": 8,
+      "community_name": "Product Concepts (README)",
+      "contributor": null,
+      "file_type": "document",
+      "norm_label": "wd (warp directory)",
+      "rationale": "Go rewrite of the zsh plugin: single binary install, cross-shell support (bash, zsh, PowerShell), speed.",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "source_url": null
     },
     {
-      "id": "cmd_store_test_teststoreputreplacesexistingpoint",
-      "label": "TestStorePutReplacesExistingPoint()",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store Unit Tests",
-      "file_type": "code",
-      "norm_label": "teststoreputreplacesexistingpoint()",
-      "source_file": "cmd/store_test.go",
-      "source_location": "L10"
-    },
-    {
-      "id": "cmd_store_test_teststoreremoveandcleanwriteconsistentconfig",
-      "label": "TestStoreRemoveAndCleanWriteConsistentConfig()",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store Unit Tests",
-      "file_type": "code",
-      "norm_label": "teststoreremoveandcleanwriteconsistentconfig()",
-      "source_file": "cmd/store_test.go",
-      "source_location": "L65"
+      "id": "readme_shell_wrapper",
+      "label": "Shell wrapper (wd init)",
+      "author": null,
+      "captured_at": null,
+      "community": 8,
+      "community_name": "Product Concepts (README)",
+      "contributor": null,
+      "file_type": "rationale",
+      "norm_label": "shell wrapper (wd init)",
+      "rationale": "A child process cannot change the parent shell's directory; the wrapper passes wd's own commands through, and that command list is built at wd init time, so saved init output must be regenerated after upgrades.",
+      "source_file": "README.md",
+      "source_location": "L23",
+      "source_url": null
     },
     {
       "id": "go_pkg_slices",
       "label": "go_pkg_slices",
-      "community": 0,
-      "community_name": "Root Command & Wiring",
+      "community": 1,
+      "community_name": "Root Command & Entry",
       "external": true,
       "file_type": "concept",
       "norm_label": "go_pkg_slices",
@@ -877,8 +1324,8 @@
     {
       "id": "go_pkg_os",
       "label": "go_pkg_os",
-      "community": 11,
-      "community_name": "LS Command",
+      "community": 10,
+      "community_name": "Add Commands & Store Tests",
       "external": true,
       "file_type": "concept",
       "norm_label": "go_pkg_os",
@@ -886,10 +1333,43 @@
       "type": "external"
     },
     {
+      "id": "go_pkg_path_filepath",
+      "label": "go_pkg_path_filepath",
+      "community": 10,
+      "community_name": "Add Commands & Store Tests",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "go_pkg_path_filepath",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "go_pkg_runtime",
+      "label": "go_pkg_runtime",
+      "community": 10,
+      "community_name": "Add Commands & Store Tests",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "go_pkg_runtime",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "go_pkg_testing",
+      "label": "go_pkg_testing",
+      "community": 10,
+      "community_name": "Add Commands & Store Tests",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "go_pkg_testing",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "go_pkg_os_exec",
       "label": "go_pkg_os_exec",
-      "community": 2,
-      "community_name": "Platform Directory Opener",
+      "community": 12,
+      "community_name": "Open Command",
       "external": true,
       "file_type": "concept",
       "norm_label": "go_pkg_os_exec",
@@ -897,9 +1377,20 @@
       "type": "external"
     },
     {
+      "id": "go_pkg_fmt",
+      "label": "go_pkg_fmt",
+      "community": 14,
+      "community_name": "Init & Path Commands",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "go_pkg_fmt",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "go_pkg_syscall",
       "label": "go_pkg_syscall",
-      "community": 2,
+      "community": 3,
       "community_name": "Platform Directory Opener",
       "external": true,
       "file_type": "concept",
@@ -908,9 +1399,20 @@
       "type": "external"
     },
     {
+      "id": "go_pkg_unsafe",
+      "label": "go_pkg_unsafe",
+      "community": 3,
+      "community_name": "Platform Directory Opener",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "go_pkg_unsafe",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "go_pkg_bufio",
       "label": "go_pkg_bufio",
-      "community": 3,
+      "community": 4,
       "community_name": "Warp Point Store",
       "external": true,
       "file_type": "concept",
@@ -919,32 +1421,10 @@
       "type": "external"
     },
     {
-      "id": "go_pkg_runtime",
-      "label": "go_pkg_runtime",
-      "community": 4,
-      "community_name": "Shell Wrapper Tests",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "go_pkg_runtime",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "go_pkg_fmt",
-      "label": "go_pkg_fmt",
-      "community": 5,
-      "community_name": "Open, Remove & Version",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "go_pkg_fmt",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "go_pkg_github_com_spf13_cobra",
       "label": "go_pkg_github_com_spf13_cobra",
       "community": 5,
-      "community_name": "Open, Remove & Version",
+      "community_name": "Ls & Version Commands",
       "external": true,
       "file_type": "concept",
       "norm_label": "go_pkg_github_com_spf13_cobra",
@@ -954,8 +1434,8 @@
     {
       "id": "go_pkg_strings",
       "label": "go_pkg_strings",
-      "community": 6,
-      "community_name": "Init & Show Commands",
+      "community": 7,
+      "community_name": "Show Command",
       "external": true,
       "file_type": "concept",
       "norm_label": "go_pkg_strings",
@@ -965,8 +1445,8 @@
     {
       "id": "go_pkg_errors",
       "label": "go_pkg_errors",
-      "community": 7,
-      "community_name": "List & Clean Commands",
+      "community": 9,
+      "community_name": "Clean & List Commands",
       "external": true,
       "file_type": "concept",
       "norm_label": "go_pkg_errors",
@@ -976,33 +1456,11 @@
     {
       "id": "go_pkg_io_fs",
       "label": "go_pkg_io_fs",
-      "community": 7,
-      "community_name": "List & Clean Commands",
+      "community": 9,
+      "community_name": "Clean & List Commands",
       "external": true,
       "file_type": "concept",
       "norm_label": "go_pkg_io_fs",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "go_pkg_path_filepath",
-      "label": "go_pkg_path_filepath",
-      "community": 8,
-      "community_name": "Add Commands",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "go_pkg_path_filepath",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "go_pkg_testing",
-      "label": "go_pkg_testing",
-      "community": 9,
-      "community_name": "Store Unit Tests",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "go_pkg_testing",
       "source_file": "",
       "type": "external"
     }
@@ -1017,7 +1475,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "cmd/root.go",
-      "source_location": "L70",
+      "source_location": "L72",
       "weight": 1.0
     },
     {
@@ -1117,6 +1575,18 @@
       "weight": 1.0
     },
     {
+      "source": "main_test_completions",
+      "target": "main_test_runwd",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "main_test.go",
+      "source_location": "L278",
+      "weight": 1.0
+    },
+    {
       "source": "main_test_runshellwrappersuite",
       "target": "main_test_tempdir",
       "relation": "calls",
@@ -1125,7 +1595,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L363",
+      "source_location": "L432",
       "weight": 1.0
     },
     {
@@ -1137,7 +1607,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L365",
+      "source_location": "L434",
       "weight": 1.0
     },
     {
@@ -1149,7 +1619,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L368",
+      "source_location": "L437",
       "weight": 1.0
     },
     {
@@ -1161,7 +1631,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L376",
+      "source_location": "L445",
       "weight": 1.0
     },
     {
@@ -1173,7 +1643,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L387",
+      "source_location": "L456",
       "weight": 1.0
     },
     {
@@ -1185,7 +1655,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L390",
+      "source_location": "L459",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test_runshellwrappersuite",
+      "target": "main_test_writefakefzf",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "main_test.go",
+      "source_location": "L528",
       "weight": 1.0
     },
     {
@@ -1197,7 +1679,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -1209,7 +1691,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L65",
+      "source_location": "L66",
       "weight": 1.0
     },
     {
@@ -1221,7 +1703,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L156",
+      "source_location": "L157",
       "weight": 1.0
     },
     {
@@ -1233,7 +1715,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L163",
+      "source_location": "L164",
       "weight": 1.0
     },
     {
@@ -1245,7 +1727,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L457",
+      "source_location": "L584",
       "weight": 1.0
     },
     {
@@ -1257,7 +1739,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L184",
+      "source_location": "L185",
       "weight": 1.0
     },
     {
@@ -1269,7 +1751,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L187",
+      "source_location": "L188",
       "weight": 1.0
     },
     {
@@ -1281,7 +1763,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L189",
+      "source_location": "L190",
       "weight": 1.0
     },
     {
@@ -1293,7 +1775,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L245",
+      "source_location": "L246",
       "weight": 1.0
     },
     {
@@ -1305,7 +1787,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L248",
+      "source_location": "L249",
       "weight": 1.0
     },
     {
@@ -1317,7 +1799,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L251",
+      "source_location": "L252",
       "weight": 1.0
     },
     {
@@ -1329,7 +1811,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L462",
+      "source_location": "L589",
       "weight": 1.0
     },
     {
@@ -1341,7 +1823,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L465",
+      "source_location": "L592",
       "weight": 1.0
     },
     {
@@ -1353,7 +1835,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L203",
+      "source_location": "L204",
       "weight": 1.0
     },
     {
@@ -1365,7 +1847,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L208",
+      "source_location": "L209",
       "weight": 1.0
     },
     {
@@ -1377,7 +1859,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L210",
+      "source_location": "L211",
       "weight": 1.0
     },
     {
@@ -1389,7 +1871,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L220",
+      "source_location": "L221",
       "weight": 1.0
     },
     {
@@ -1401,7 +1883,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L228",
+      "source_location": "L229",
       "weight": 1.0
     },
     {
@@ -1413,7 +1895,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L230",
+      "source_location": "L231",
       "weight": 1.0
     },
     {
@@ -1425,7 +1907,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L459",
+      "source_location": "L586",
       "weight": 1.0
     },
     {
@@ -1437,7 +1919,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L170",
+      "source_location": "L171",
       "weight": 1.0
     },
     {
@@ -1449,7 +1931,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L176",
+      "source_location": "L177",
       "weight": 1.0
     },
     {
@@ -1461,7 +1943,43 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L178",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test_testwarppointcompletion",
+      "target": "main_test_tempdir",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "main_test.go",
+      "source_location": "L289",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test_testwarppointcompletion",
+      "target": "main_test_completions",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "main_test.go",
+      "source_location": "L292",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test_testwarppointcompletion",
+      "target": "main_test_writewarpconfig",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "main_test.go",
+      "source_location": "L296",
       "weight": 1.0
     },
     {
@@ -1473,7 +1991,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L113",
+      "source_location": "L114",
       "weight": 1.0
     },
     {
@@ -1485,7 +2003,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L117",
+      "source_location": "L118",
       "weight": 1.0
     },
     {
@@ -1497,7 +2015,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L34",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
@@ -1509,7 +2027,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "main_test.go",
-      "source_location": "L458",
+      "source_location": "L585",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test_writefakefzf",
+      "target": "main_test_tempdir",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "main_test.go",
+      "source_location": "L332",
       "weight": 1.0
     },
     {
@@ -1521,7 +2051,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "main_test.go",
-      "source_location": "L298",
+      "source_location": "L367",
       "weight": 1.0
     },
     {
@@ -1654,6 +2184,30 @@
       "context": "import",
       "source_file": "cmd/clean.go",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_complete",
+      "target": "go_pkg_strings",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "cmd/complete.go",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_complete",
+      "target": "go_pkg_github_com_spf13_cobra",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "cmd/complete.go",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -1790,6 +2344,18 @@
     },
     {
       "source": "cmd_open",
+      "target": "go_pkg_os_exec",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "cmd/open.go",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_open",
       "target": "go_pkg_github_com_spf13_cobra",
       "relation": "imports_from",
       "_origin": "ast",
@@ -1797,12 +2363,12 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "cmd/open.go",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
       "source": "cmd_open_darwin",
-      "target": "go_pkg_os_exec",
+      "target": "go_pkg_github_com_spf13_cobra",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1814,7 +2380,7 @@
     },
     {
       "source": "cmd_open_linux",
-      "target": "go_pkg_os_exec",
+      "target": "go_pkg_github_com_spf13_cobra",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1826,7 +2392,19 @@
     },
     {
       "source": "cmd_open_windows",
-      "target": "go_pkg_os_exec",
+      "target": "go_pkg_github_com_spf13_cobra",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "cmd/open_windows.go",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_open_windows",
+      "target": "go_pkg_fmt",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1846,6 +2424,18 @@
       "context": "import",
       "source_file": "cmd/open_windows.go",
       "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_open_windows",
+      "target": "go_pkg_unsafe",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "cmd/open_windows.go",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -2162,7 +2752,7 @@
     },
     {
       "source": "cmd_store_test",
-      "target": "go_pkg_strings",
+      "target": "go_pkg_runtime",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2174,7 +2764,7 @@
     },
     {
       "source": "cmd_store_test",
-      "target": "go_pkg_testing",
+      "target": "go_pkg_strings",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2182,6 +2772,18 @@
       "context": "import",
       "source_file": "cmd/store_test.go",
       "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_store_test",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "cmd/store_test.go",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -2246,6 +2848,18 @@
     },
     {
       "source": "main",
+      "target": "cmd_complete",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "main.go",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
       "target": "cmd_init",
       "relation": "imports_from",
       "_origin": "ast",
@@ -2414,7 +3028,7 @@
     },
     {
       "source": "main_test",
-      "target": "go_pkg_testing",
+      "target": "go_pkg_strings",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2426,6 +3040,18 @@
     },
     {
       "source": "main_test",
+      "target": "go_pkg_testing",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "main_test.go",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test",
       "target": "cmd_add",
       "relation": "imports_from",
       "_origin": "ast",
@@ -2433,7 +3059,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2445,7 +3071,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2457,7 +3083,19 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test",
+      "target": "cmd_complete",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "main_test.go",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2469,7 +3107,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2481,7 +3119,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2493,7 +3131,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2505,7 +3143,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2517,7 +3155,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2529,7 +3167,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2541,7 +3179,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2553,7 +3191,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2565,7 +3203,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2577,7 +3215,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2589,7 +3227,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2601,7 +3239,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2613,7 +3251,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2625,7 +3263,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "main_test.go",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2690,7 +3328,7 @@
     },
     {
       "source": "main_test",
-      "target": "go_pkg_strings",
+      "target": "go_pkg_slices",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -2698,6 +3336,66 @@
       "context": "import",
       "source_file": "main_test.go",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_complete_completewarppoint",
+      "target": "go_type_github_com_spf13_cobra_command",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "source_file": "cmd/complete.go",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_open_darwin_opendir",
+      "target": "go_type_github_com_spf13_cobra_command",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "source_file": "cmd/open_darwin.go",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_open_linux_opendir",
+      "target": "go_type_github_com_spf13_cobra_command",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "source_file": "cmd/open_linux.go",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_open_runopener",
+      "target": "go_type_github_com_spf13_cobra_command",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "source_file": "cmd/open.go",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_open_windows_opendir",
+      "target": "go_type_github_com_spf13_cobra_command",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "source_file": "cmd/open_windows.go",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -2709,7 +3407,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "cmd/root.go",
-      "source_location": "L69",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -2721,7 +3419,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "cmd/show.go",
-      "source_location": "L70",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -2745,7 +3443,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "cmd/store_test.go",
-      "source_location": "L50",
+      "source_location": "L54",
       "weight": 1.0
     },
     {
@@ -2757,7 +3455,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "cmd/store_test.go",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -2769,7 +3467,31 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "cmd/store_test.go",
-      "source_location": "L65",
+      "source_location": "L69",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test_completions",
+      "target": "go_type_testing_t",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "source_file": "main_test.go",
+      "source_location": "L276",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test_completions",
+      "target": "wd_invocation",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "source_file": "main_test.go",
+      "source_location": "L276",
       "weight": 1.0
     },
     {
@@ -2781,7 +3503,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L347",
+      "source_location": "L416",
       "weight": 1.0
     },
     {
@@ -2793,7 +3515,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L347",
+      "source_location": "L416",
       "weight": 1.0
     },
     {
@@ -2805,7 +3527,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L44",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -2817,7 +3539,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L44",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -2829,7 +3551,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L59",
+      "source_location": "L60",
       "weight": 1.0
     },
     {
@@ -2841,7 +3563,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L59",
+      "source_location": "L60",
       "weight": 1.0
     },
     {
@@ -2853,7 +3575,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L77",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -2865,7 +3587,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L155",
+      "source_location": "L156",
       "weight": 1.0
     },
     {
@@ -2877,7 +3599,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L457",
+      "source_location": "L584",
       "weight": 1.0
     },
     {
@@ -2889,7 +3611,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L183",
+      "source_location": "L184",
       "weight": 1.0
     },
     {
@@ -2901,7 +3623,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L244",
+      "source_location": "L245",
       "weight": 1.0
     },
     {
@@ -2913,7 +3635,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L461",
+      "source_location": "L588",
       "weight": 1.0
     },
     {
@@ -2925,7 +3647,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L202",
+      "source_location": "L203",
       "weight": 1.0
     },
     {
@@ -2937,7 +3659,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L215",
+      "source_location": "L216",
       "weight": 1.0
     },
     {
@@ -2949,7 +3671,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L459",
+      "source_location": "L586",
       "weight": 1.0
     },
     {
@@ -2961,7 +3683,19 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L169",
+      "source_location": "L170",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test_testwarppointcompletion",
+      "target": "go_type_testing_t",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "source_file": "main_test.go",
+      "source_location": "L288",
       "weight": 1.0
     },
     {
@@ -2973,7 +3707,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L112",
+      "source_location": "L113",
       "weight": 1.0
     },
     {
@@ -2985,7 +3719,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -2997,7 +3731,19 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L458",
+      "source_location": "L585",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test_writefakefzf",
+      "target": "go_type_testing_t",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "parameter_type",
+      "source_file": "main_test.go",
+      "source_location": "L330",
       "weight": 1.0
     },
     {
@@ -3009,7 +3755,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L275",
+      "source_location": "L312",
       "weight": 1.0
     },
     {
@@ -3021,43 +3767,31 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "main_test.go",
-      "source_location": "L105",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
-      "source": "cmd_open_darwin_opendir",
-      "target": "go_type_os_exec_cmd",
+      "source": "cmd_complete_completewarppoint",
+      "target": "go_type_github_com_spf13_cobra_completion",
       "relation": "references",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "return_type",
-      "source_file": "cmd/open_darwin.go",
-      "source_location": "L7",
+      "source_file": "cmd/complete.go",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
-      "source": "cmd_open_linux_opendir",
-      "target": "go_type_os_exec_cmd",
+      "source": "cmd_complete_completewarppoint",
+      "target": "go_type_github_com_spf13_cobra_shellcompdirective",
       "relation": "references",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "return_type",
-      "source_file": "cmd/open_linux.go",
-      "source_location": "L7",
-      "weight": 1.0
-    },
-    {
-      "source": "cmd_open_windows_opendir",
-      "target": "go_type_os_exec_cmd",
-      "relation": "references",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "return_type",
-      "source_file": "cmd/open_windows.go",
-      "source_location": "L14",
+      "source_file": "cmd/complete.go",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -3106,6 +3840,17 @@
       "weight": 1.0
     },
     {
+      "source": "cmd_complete",
+      "target": "cmd_complete_completewarppoint",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "cmd/complete.go",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
       "source": "cmd_init",
       "target": "cmd_init_init",
       "relation": "contains",
@@ -3113,7 +3858,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/init.go",
-      "source_location": "L104",
+      "source_location": "L138",
       "weight": 1.0
     },
     {
@@ -3135,7 +3880,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/ls.go",
-      "source_location": "L30",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_open",
+      "target": "cmd_open_runopener",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "cmd/open.go",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -3146,7 +3902,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/open.go",
-      "source_location": "L28",
+      "source_location": "L36",
       "weight": 1.0
     },
     {
@@ -3179,7 +3935,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/open_windows.go",
-      "source_location": "L14",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -3190,7 +3946,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/path.go",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -3201,7 +3957,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/rm.go",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -3212,7 +3968,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/root.go",
-      "source_location": "L41",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
@@ -3223,7 +3979,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/root.go",
-      "source_location": "L58",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -3234,7 +3990,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/root.go",
-      "source_location": "L69",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -3245,7 +4001,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/root.go",
-      "source_location": "L85",
+      "source_location": "L90",
       "weight": 1.0
     },
     {
@@ -3256,7 +4012,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/root.go",
-      "source_location": "L92",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
@@ -3267,7 +4023,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/show.go",
-      "source_location": "L63",
+      "source_location": "L64",
       "weight": 1.0
     },
     {
@@ -3278,7 +4034,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/show.go",
-      "source_location": "L70",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -3322,7 +4078,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/store_test.go",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -3333,7 +4089,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/store_test.go",
-      "source_location": "L50",
+      "source_location": "L54",
       "weight": 1.0
     },
     {
@@ -3344,7 +4100,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "cmd/store_test.go",
-      "source_location": "L65",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -3377,7 +4133,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L105",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -3388,7 +4144,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L112",
+      "source_location": "L113",
       "weight": 1.0
     },
     {
@@ -3399,7 +4155,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L155",
+      "source_location": "L156",
       "weight": 1.0
     },
     {
@@ -3410,7 +4166,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L169",
+      "source_location": "L170",
       "weight": 1.0
     },
     {
@@ -3421,7 +4177,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -3432,7 +4188,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L183",
+      "source_location": "L184",
       "weight": 1.0
     },
     {
@@ -3443,7 +4199,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L202",
+      "source_location": "L203",
       "weight": 1.0
     },
     {
@@ -3454,7 +4210,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L215",
+      "source_location": "L216",
       "weight": 1.0
     },
     {
@@ -3465,7 +4221,29 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L244",
+      "source_location": "L245",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test",
+      "target": "main_test_completions",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main_test.go",
+      "source_location": "L276",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test",
+      "target": "main_test_testwarppointcompletion",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main_test.go",
+      "source_location": "L288",
       "weight": 1.0
     },
     {
@@ -3476,7 +4254,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L275",
+      "source_location": "L312",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test",
+      "target": "main_test_writefakefzf",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main_test.go",
+      "source_location": "L330",
       "weight": 1.0
     },
     {
@@ -3487,29 +4276,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L291",
-      "weight": 1.0
-    },
-    {
-      "source": "main_test",
-      "target": "main_test_lastline",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main_test.go",
-      "source_location": "L339",
-      "weight": 1.0
-    },
-    {
-      "source": "main_test",
-      "target": "main_test_runshellwrappersuite",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "main_test.go",
-      "source_location": "L347",
+      "source_location": "L360",
       "weight": 1.0
     },
     {
@@ -3520,7 +4287,29 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L38",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test",
+      "target": "main_test_lastline",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main_test.go",
+      "source_location": "L408",
+      "weight": 1.0
+    },
+    {
+      "source": "main_test",
+      "target": "main_test_runshellwrappersuite",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "main_test.go",
+      "source_location": "L416",
       "weight": 1.0
     },
     {
@@ -3531,7 +4320,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L44",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -3542,7 +4331,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L457",
+      "source_location": "L584",
       "weight": 1.0
     },
     {
@@ -3553,7 +4342,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L458",
+      "source_location": "L585",
       "weight": 1.0
     },
     {
@@ -3564,7 +4353,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L459",
+      "source_location": "L586",
       "weight": 1.0
     },
     {
@@ -3575,7 +4364,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L461",
+      "source_location": "L588",
       "weight": 1.0
     },
     {
@@ -3586,7 +4375,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L59",
+      "source_location": "L60",
       "weight": 1.0
     },
     {
@@ -3597,7 +4386,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L77",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -3608,7 +4397,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "main_test.go",
-      "source_location": "L88",
+      "source_location": "L89",
       "weight": 1.0
     },
     {
@@ -3678,30 +4467,498 @@
       "weight": 1.0
     },
     {
+      "source": "cmd_ls",
+      "target": "cmd_complete_completewarppoint",
+      "relation": "references",
+      "_origin": "manual",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "ValidArgsFunction",
+      "source_file": "cmd/ls.go",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_open",
+      "target": "cmd_complete_completewarppoint",
+      "relation": "references",
+      "_origin": "manual",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "ValidArgsFunction",
+      "source_file": "cmd/open.go",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_path",
+      "target": "cmd_complete_completewarppoint",
+      "relation": "references",
+      "_origin": "manual",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "ValidArgsFunction",
+      "source_file": "cmd/path.go",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_rm",
+      "target": "cmd_complete_completewarppoint",
+      "relation": "references",
+      "_origin": "manual",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "ValidArgsFunction",
+      "source_file": "cmd/rm.go",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_root",
+      "target": "cmd_complete_completewarppoint",
+      "relation": "references",
+      "_origin": "manual",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "ValidArgsFunction",
+      "source_file": "cmd/root.go",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_show",
+      "target": "cmd_complete_completewarppoint",
+      "relation": "references",
+      "_origin": "manual",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "ValidArgsFunction",
+      "source_file": "cmd/show.go",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_complete_completewarppoint",
+      "target": "cmd_store_newstore",
+      "relation": "calls",
+      "_origin": "manual",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "cmd/complete.go",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_open_darwin_opendir",
+      "target": "cmd_open_runopener",
+      "relation": "calls",
+      "_origin": "manual",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "cmd/open_darwin.go",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "cmd_open_linux_opendir",
+      "target": "cmd_open_runopener",
+      "relation": "calls",
+      "_origin": "manual",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "cmd/open_linux.go",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
       "source": "cmd_root_addpoint",
       "target": "cmd_store_newstore",
       "relation": "calls",
-      "_origin": "ast",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
+      "_origin": "manual",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "context": "call",
       "source_file": "cmd/root.go",
-      "source_location": "L74",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
       "source": "cmd_root_getwarppoint",
       "target": "cmd_store_newstore",
       "relation": "calls",
-      "_origin": "ast",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
+      "_origin": "manual",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "context": "call",
       "source_file": "cmd/root.go",
-      "source_location": "L42",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_wd",
+      "target": "readme_mfaerevaag_wd",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_build",
+      "target": "_github_workflows_ci_version_ldflags",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_build",
+      "target": "_github_workflows_ci_cross_platform_matrix",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_security",
+      "target": "_github_workflows_ci_trivy",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_release_build",
+      "target": "_github_workflows_ci_cross_platform_matrix",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/release.yml",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_release_build",
+      "target": "_github_workflows_ci_version_ldflags",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/release.yml",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_build",
+      "target": "_github_workflows_ci_test",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_ci",
+      "target": "_github_workflows_release_release",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_ci",
+      "target": "_github_workflows_ci_test",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_ci",
+      "target": "_github_workflows_ci_checksums",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_ci",
+      "target": "_github_workflows_ci_security",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_ci",
+      "target": "_github_workflows_ci_build",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_pages_pages",
+      "target": "_github_workflows_pages_deploy",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/pages.yml",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_release_build",
+      "target": "_github_workflows_release_validate_tag",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/release.yml",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_release_release",
+      "target": "_github_workflows_release_validate_tag",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/release.yml",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_release_release",
+      "target": "_github_workflows_release_build",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/release.yml",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_release_release",
+      "target": "_github_workflows_release_release_job",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/release.yml",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_commands",
+      "target": "readme_warp_point",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_fzf_picker",
+      "target": "readme_warp_point",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_shell_wrapper",
+      "target": "readme_commands",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_tab_completion",
+      "target": "readme_shell_wrapper",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_tab_completion",
+      "target": "readme_warp_point",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_wd",
+      "target": "readme_commands",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_wd",
+      "target": "readme_shell_wrapper",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_wd",
+      "target": "readme_tab_completion",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_wd",
+      "target": "readme_fzf_picker",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_checksums",
+      "target": "_github_workflows_ci_build",
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L149",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_pages_deploy",
+      "target": "_github_workflows_pages_graphify_out",
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/pages.yml",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_release_release_job",
+      "target": "_github_workflows_release_build",
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/release.yml",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_cross_platform_matrix",
+      "target": "readme_wd",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_checksums",
+      "target": "_github_workflows_release_release_job",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "_github_workflows_ci_build",
+      "target": "_github_workflows_release_build",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": ".github/workflows/ci.yml",
+      "source_location": "L70",
       "weight": 1.0
     }
   ],
-  "hyperedges": [],
-  "built_at_commit": "858bc501dac331ca898c0ac628cda48ba9ac787d"
+  "hyperedges": [
+    {
+      "id": "ci_pipeline_test_build_checksum",
+      "label": "CI pipeline: test -> build -> checksums",
+      "nodes": [
+        "_github_workflows_ci_test",
+        "_github_workflows_ci_build",
+        "_github_workflows_ci_checksums"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/ci.yml"
+    },
+    {
+      "id": "release_pipeline_validate_build_publish",
+      "label": "Release pipeline: validate-tag -> build -> release",
+      "nodes": [
+        "_github_workflows_release_validate_tag",
+        "_github_workflows_release_build",
+        "_github_workflows_release_release_job"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".github/workflows/release.yml"
+    },
+    {
+      "id": "wd_shell_integration",
+      "label": "wd shell integration (wrapper, completion, fzf picker)",
+      "nodes": [
+        "readme_shell_wrapper",
+        "readme_tab_completion",
+        "readme_fzf_picker"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md"
+    }
+  ],
+  "built_at_commit": "7d221828c87d9a2cd130678886210d68182377b5"
 }
